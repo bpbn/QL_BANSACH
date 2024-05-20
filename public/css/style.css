@@ -1,0 +1,124 @@
+/* ẩn bớt chữ thẻ p  */
+.hide-less {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+/* chỉnh vị trí nút button */
+.custom-btn {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+.custom-a {
+    position: absolute;
+    left: 10px;
+    bottom: 50px;
+}
+
+/* màu chữ cart nút xem chi tiết */
+
+/*xóa gạch chân thẻ a */
+a {
+    text-decoration: none !important;
+}
+
+/* chỉnh kích thức thẻ card */
+.size-card {
+    width: 240px;
+    height: 420px;
+}
+
+/* chỉnh kích thức thẻ img */
+.size-img {
+    width: auto;
+    height: 238px;
+}
+
+
+.row-align {
+    margin-top: 60px;
+}
+
+.col-align {
+    padding-top: 6px;
+}
+
+/* chỉnh sửa slide */
+.carousel-item img,
+.carousel {
+    max-height: 500px;
+    width: 1308px;
+    margin: 0 auto;
+}
+
+.carousel {
+    margin-top: 60px;
+}
+
+/* footer */
+
+
+footer {
+    margin-bottom: -50px;
+}
+
+/* teplate giỏ hàng */
+/* .table&amp;amp;gt;tbody&amp;amp;gt;tr&amp;amp;gt;td, .table&amp;amp;gt;tfoot&amp;amp;gt;tr&amp;amp;gt;td {
+    vertical-align: middle;
+    } */
+
+@media screen and (max-width: 600px) {
+    table#cart tbody td .form-control {
+        width: 20%;
+        display: inline !important;
+    }
+
+    .actions .btn {
+        width: 36%;
+        margin: 1.5em 0;
+    }
+
+    .actions .btn-info {
+        float: left;
+    }
+
+    .actions .btn-danger {
+        float: right;
+    }
+
+    table#cart thead {
+        display: none;
+    }
+
+    table#cart tbody td {
+        display: block;
+        padding: .6rem;
+        min-width: 320px;
+    }
+
+    table#cart tbody tr td:first-child {
+        background: #333;
+        color: #fff;
+    }
+
+    table#cart tbody td:before {
+        content: attr(data-th);
+        font-weight: bold;
+        display: inline-block;
+        width: 8rem;
+    }
+
+    table#cart tfoot td {
+        display: block;
+    }
+
+    table#cart tfoot td .btn {
+        display: block;
+    }
+
+}
+

@@ -1,0 +1,72 @@
+/* ẩn bớt chữ thẻ p  */
+.hide-less {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+
+
+.button-container .btn {
+    float: left;
+}
+
+/* chỉnh vị trí nút button */
+.custom-btn {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+.custom-a {
+    position: absolute;
+    left: 10px;
+    bottom: 50px;
+}
+
+/* chỉnh kích thức thẻ card */
+.size-card {
+    width: 240px;
+    height: 420px;
+}
+
+/* chỉnh kích thức thẻ img */
+.size-img {
+    width: auto;
+    height: 238px;
+}
+
+
+.row-align {
+    margin-top: 60px;
+}
+
+.col-align {
+    padding-top: 6px;
+}
+
+/* chỉnh sửa slide */
+.carousel-item img,
+.carousel {
+    max-height: 500px;
+    width: 960px;
+    margin: 0 auto;
+}
+
+.carousel {
+    margin-top: 60px;
+}
+
+/* footer */
+
+
+footer {
+    margin-bottom: -50px;
+}
+
+.favorite-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
