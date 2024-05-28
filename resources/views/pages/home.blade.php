@@ -61,6 +61,7 @@
                                             <a href="{{ route('detail.book', $p->id) }}">
                                                 <img src=" {{ asset($p->img) }}" class="card-img-top size-img"
                                                     onerror="this.src='asset/img/no_image_placeholder.png';" alt="...">
+                                                    <p></p>
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{ $p->name }}</h5>
                                                     <p class="card-text hide-less">{{ $p->description }}</p>
