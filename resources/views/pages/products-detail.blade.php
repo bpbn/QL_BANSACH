@@ -169,6 +169,7 @@
                                     <a href="#"
                                         class="btn-link text-semibold media-heading box-inline">{{ $com->user->name }}</a>
                                     <p class="text-muted text-sm">{{ $com->created_at->format('d/m/Y') }}</p>
+                                    <p>{{$com->Comment}}</p>
                                 </div>
                                 <p>{{ $com->comment }}</p>
                                 @if (Auth::id() == $com->user_id)
