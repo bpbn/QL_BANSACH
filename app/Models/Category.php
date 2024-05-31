@@ -12,4 +12,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     public function books(){
         return $this->hasMany(Book::class);
     }
+    public function promotionals()
+    {
+        return $this->hasMany(Promotional::class, 'discount_id');
+    }
  }

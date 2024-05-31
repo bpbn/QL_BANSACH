@@ -36,8 +36,8 @@
 
     <div class="container ">
         <div class="row">
-            <div class="col-md-3 mb-2 mt-3 ">
-                <h5 style="border: 1px solid black; padding: 10px;background-color: rgb(25, 177, 219)">Danh mục sản phẩm
+            <!-- <div class="col-md-3 mb-2 mt-3 ">
+                <h5 style="padding: 10px;background-color: #efe5f9">Danh mục sản phẩm
                 </h5>
                 <ul class="nav nav-pills flex-column">
                     @foreach ($cats as $cat)
@@ -47,7 +47,7 @@
                     @endforeach
 
                 </ul>
-            </div>
+            </div> -->
             <div class="col-md-9">
                 @foreach ($cats as $c)
                     

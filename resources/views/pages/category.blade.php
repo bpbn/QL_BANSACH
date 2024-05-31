@@ -7,7 +7,7 @@
     <div class="container row-align">
         <div class="row row-align">
             <div class="col-md-3 mb-2 col-align">
-                <h5>Danh mục sản phẩm</h5>
+                <h5 style="padding: 10px; background-color: #efe5f9">Danh mục sản phẩm</h5>
                 <ul class="nav nav-pills flex-column">
                     @foreach ($cats as $item)
                         <li class="nav-item">
@@ -16,9 +16,9 @@
                         </li>
                     @endforeach
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="http://127.0.0.1:8000">Trang chủ</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="col-md-9">

@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PromotionalController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -42,6 +44,10 @@ Route::middleware('auth')->group( function(){
     Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+    //Review
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('add.comment');
+    
     //yêu thích
     Route::get('/favorite', [FavoritebookController::class, 'index'])->name('favoritebook.index');
     Route::post('/favorite/add', [FavoritebookController::class, 'create'])->name('favoritebook.add');
@@ -63,6 +69,7 @@ Route::get('register', [LoginController::class, 'register'])->name('register');
 Route::post('register', [LoginController::class, 'postregister'])->name('register');
 
 Route::resource('/', BookController::class);
+Route::resource('/promotionals', PromotionalController::class);
 
 Route::fallback(function () {
     return view('pages.404');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
@@ -19,9 +20,23 @@ class ReviewController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $request->validate([
+            'comment' => 'required',
+            'rating' => 'required|integer|min:1|max:5',
+            'book_id' => 'required|exists:books,id',
+        ]);
+
+        Review::create([
+            'comment' => $request->input('comment'),
+            'rating' => $request->input('rating'),
+            'book_id' => $request->input('book_id'),
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->back()->with('success', 'Review added successfully.');
     }
 
     /**
