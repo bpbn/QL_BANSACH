@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reviews', function (Blueprint $table) {
-            $table->timestamps();
-            $table->softDeletes();
+            //
+            $table->softDeletes(); // Thêm trường deleted_at
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('reviews', function (Blueprint $table) {
-            $table->dropColumn('created_at');
-            $table->dropColumn('updated_at');
+            //
+            $table->dropSoftDeletes(); // Xóa trường deleted_at
         });
     }
 };
