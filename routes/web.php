@@ -69,7 +69,9 @@ Route::get('register', [LoginController::class, 'register'])->name('register');
 Route::post('register', [LoginController::class, 'postregister'])->name('register');
 
 Route::resource('/', BookController::class);
-Route::resource('/promotionals', PromotionalController::class);
+Route::resource('/promotional', PromotionalController::class);
+Route::get('/products', [HomeController::class, 'show'])->name('list-products');
+
 
 Route::fallback(function () {
     return view('pages.404');

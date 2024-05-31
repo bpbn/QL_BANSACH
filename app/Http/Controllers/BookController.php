@@ -28,4 +28,5 @@ class BookController extends Controller
         }
         return view('pages.home', compact('book', 'cats'));
     }
+
 }

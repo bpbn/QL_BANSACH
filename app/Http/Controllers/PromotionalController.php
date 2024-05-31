@@ -11,14 +11,14 @@ class PromotionalController extends Controller
 {
     public function index()
     {
-        $promotionals = Promotional::with('category')->get();
-        return view('promotionals.index', compact('promotionals'));
+        $promotional = Promotional::with('category')->get();
+        return view('promotional.index', compact('promotional'));
     }
 
     public function create()
     {
         $categories = Category::all();
-        return view('promotionals.create', compact('categories'));
+        return view('promotional.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -31,20 +31,20 @@ class PromotionalController extends Controller
 
         Promotional::create($request->all());
 
-        return redirect()->route('promotionals.index')->with('success', 'Promotional created successfully.');
+        return redirect()->route('promotional.index')->with('success', 'Promotional created successfully.');
     }
 
     public function show($id)
     {
         $promotional = Promotional::with('category')->findOrFail($id);
-        return view('promotionals.show', compact('promotional'));
+        return view('promotional.show', compact('promotional'));
     }
 
     public function edit($id)
     {
         $promotional = Promotional::findOrFail($id);
         $categories = Category::all();
-        return view('promotionals.edit', compact('promotional', 'categories'));
+        return view('promotional.edit', compact('promotional', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -58,7 +58,7 @@ class PromotionalController extends Controller
         $promotional = Promotional::findOrFail($id);
         $promotional->update($request->all());
 
-        return redirect()->route('promotionals.index')->with('success', 'Promotional updated successfully.');
+        return redirect()->route('promotional.index')->with('success', 'Promotional updated successfully.');
     }
 
     public function destroy($id)
@@ -66,6 +66,6 @@ class PromotionalController extends Controller
         $promotional = Promotional::findOrFail($id);
         $promotional->delete();
 
-        return redirect()->route('promotionals.index')->with('success', 'Promotional deleted successfully.');
+        return redirect()->route('promotional.index')->with('success', 'Promotional deleted successfully.');
     }
 }

@@ -65,7 +65,7 @@
                 <div class="sticky-top">
                     <ul class="nav justify-content-center">
                         <li class="item">
-                            <button class="btn"><a href="#" style="color: black;">Tất cả sản phẩm</a></button>
+                            <button class="btn"><a href="{{ route('list-products') }}" style="color: black;">Tất cả sản phẩm</a></button>
                         </li>
                         <li class="item">
                             <div class="dropdown">

@@ -44,4 +44,10 @@ class HomeController extends Controller
         }
         return view('pages.category', compact('cats', 'cat', 'book'));
     }
+
+    public function show(){
+        $books = Book::all();
+        $cats=Category::orderBy('name', 'ASC')->get();
+        return view('pages.list-products', ['books' => $books, 'cats' => $cats]);
+    }
 }
