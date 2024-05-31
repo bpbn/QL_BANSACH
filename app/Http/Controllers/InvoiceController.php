@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Data;
 use App\Models\Invoice;
 use App\Http\Requests\StoreInvoiceRequest;
@@ -20,13 +21,14 @@ class InvoiceController extends Controller
         $user_id = Auth::id();
         $carts = Cart::where('user_id', $user_id)->get();
         $total = 0;
+        $cats=Category::orderBy('name', 'ASC')->get();
 
         foreach($carts as $cart)
         {
             $total += $cart->quantity * $cart->price;
 
         }
-        return view('pages.invoice', ['total' => $total]);
+        return view('pages.invoice', ['total' => $total, 'cats' => $cats]);
     } 
 
     /**

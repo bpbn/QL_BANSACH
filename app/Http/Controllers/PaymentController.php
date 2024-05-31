@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Payment;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
@@ -16,7 +17,8 @@ class PaymentController extends Controller
     public function index()
     {
         $payment = User::orderBy('name', 'DESC')->get();
-        return view('pages.payment', compact('payment'));
+        $cats= Category::orderBy('name', 'ASC')->get();
+        return view('pages.payment', compact('payment', 'cats'));
 
 
         /**

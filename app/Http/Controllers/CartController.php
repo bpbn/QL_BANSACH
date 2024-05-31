@@ -21,7 +21,8 @@ class CartController extends Controller
         $book = Book::orderBy('name', 'ASC')->get();
         $userId = auth()->user()->id;
         $cartItems = Cart::where('user_id', $userId)->get();
-        return view('pages.cart', compact('cartItems', 'book'));
+        $cats=Category::orderBy('name', 'ASC')->get();
+        return view('pages.cart', compact('cartItems', 'book', 'cats'));
     }
 
     /**
