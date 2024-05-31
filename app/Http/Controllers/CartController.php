@@ -83,43 +83,57 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
-        request()->validate([
-            'quantity' => 'required|numeric|min:1',
+    public function updateCart(Request $request, $id)
+{
+    request()->validate([
+        'quantity' => 'required|numeric|min:1',
+    ]);
+
+    // Cập nhật mục giỏ hàng trong cơ sở dữ liệu
+    $cartItem = Cart::where('book_id', $id)->where('user_id', auth()->id())->first();
+    if ($cartItem) {
+        $cartItem->update([
+            'quantity' => $request->quantity,
         ]);
-        // Lấy ID sách và số lượng mới từ biểu mẫu
-        $bookId = $id;
-        $newQuantity = request('quantity');
 
-        // Cập nhật mục giỏ hàng trong cơ sở dữ liệu
-        $cartItem = Cart::where('book_id', $bookId)->first();
-        if ($cartItem) {
-            $cartItem->update([
-                'quantity' => $newQuantity,
-            ]);
-
-            // Chuyển hướng trở lại bằng thông báo thành công hoặc thực hiện các hành động khác nếu cần
-            return redirect()->back()->with('success', 'Cart item updated successfully');
+        // Tính tổng tiền
+        $total = 0;
+        $cartItems = Cart::where('user_id', auth()->id())->get();
+        foreach ($cartItems as $item) {
+            $total += $item->price * $item->quantity;
         }
-        // Chuyển hướng trở lại với thông báo lỗi nếu không tìm thấy mục giỏ hàng
-        return redirect()->back()->with('error', 'Cart item not found');
+
+        return response()->json([
+            'success' => true,
+            'total' => $total
+        ]);
     }
+
+    return response()->json(['success' => false], 404);
+}
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        $cartItem = Cart::where('book_id', $id)->first();
+{
+    $cartItem = Cart::where('book_id', $id)->where('user_id', auth()->id())->first();
 
-        if ($cartItem) {
-            $cartItem->update(['quantity' => 0]);
-            $cartItem->delete();
-            // Chuyển hướng trở lại bằng thông báo thành công hoặc thực hiện các hành động khác nếu cần
-            return redirect()->back()->with('success', 'Cart item deleted successfully');
+    if ($cartItem) {
+        $cartItem->delete();
+
+        // Tính tổng tiền mới sau khi xóa sản phẩm
+        $total = 0;
+        $cartItems = Cart::where('user_id', auth()->id())->get();
+        foreach ($cartItems as $item) {
+            $total += $item->price * $item->quantity;
         }
 
-        // Chuyển hướng trở lại với thông báo lỗi nếu không tìm thấy mục giỏ hàng
-        return redirect()->back()->with('error', 'Cart item not found');
+        return response()->json([
+            'success' => true,
+            'total' => $total
+        ]);
     }
+
+    return response()->json(['success' => false], 404);
+}
 }

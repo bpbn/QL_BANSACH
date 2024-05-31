@@ -1,19 +1,18 @@
 @extends('layouts.app')
 
-
 @section('title', 'Trang chủ')
 
 @section('navbar')
     @parent
     <div class="container" style="margin-top: 65px">
-        <table id="cart" class="table table-hover  table-condensed">
+        <table id="cart" class="table table-hover table-condensed">
             <thead>
                 <tr>
-                    <th style="width:50%">Tên sản phẩm</th>
-                    <th style="width:10%">Giá</th>
-                    <th style="width:8%">Số lượng</th>
+                    <th style="width:45%">Tên sản phẩm</th>
+                    <th style="width:12%">Giá</th>
+                    <th style="width:7%">Số lượng</th>
                     <th style="width:22%" class="text-center">Thành tiền</th>
-                    <th style="width:10%"> </th>
+                    <th style="width:14%"> </th>
                 </tr>
             </thead>
             <tbody>
@@ -22,61 +21,57 @@
                 @endphp
                 @foreach ($cartItems as $ca)
                     @foreach ($book as $p)
-                        <tr>
-                            @if ($ca->book_id == $p->id)
+                        @if ($ca->book_id == $p->id)
+                            <tr data-id="{{ $ca->book_id }}">
                                 <td data-th="Product">
                                     <div class="row">
-                                        <div class="col-sm-2 hidden-xs"><img src="{{ $p->img }}" alt="Sản phẩm 1"
-                                                class="img-responsive" width="100"
+                                        <div class="col-sm-2 hidden-xs">
+                                            <img src="{{ $p->img }}" alt="Sản phẩm 1" class="img-responsive" width="100"
                                                 onerror="this.src='asset/img/no_image_placeholder.png';">
                                         </div>
                                         <div class="col-sm-10">
-                                            <h4 class="nomargin" style="margin-left: 20px;">{{ $p->name }}</h4>
-                                            {{-- <p>{{ $p->description }}</p> --}}
+                                            <h5 class="nomargin" style="margin-left: 20px;">{{ $p->name }}</h5>
                                         </div>
                                     </div>
                                 </td>
                                 <td data-th="Price">{{ number_format($ca->price, 0, ',', '.') }} VND</td>
                                 <td data-th="Quantity">
-                                    <form action="{{ route('cart.update', ['id' => $p->id]) }}" method="POST"
-                                        class="d-flex">
-                                        @csrf
-                                        <input class="form-control text-center" name="quantity" value="{{ $ca->quantity }}"
-                                            type="number" min="0" style="width: 60px;">
-                                        <button type="submit" class="btn btn-info btn-sm"
-                                            style="margin-left: 5px;">Sửa</button>
-                                    </form>
+                                    <input class="form-control text-center update-quantity" name="quantity" value="{{ $ca->quantity }}"
+                                        type="number" min="0" style="width: 60px;" data-id="{{ $ca->book_id }}" data-price="{{ $ca->price }}">
                                 </td>
-
                                 <td data-th="Subtotal" class="text-center">
-                                    {{ number_format($ca->price * $ca->quantity, 0, ',', '.') }} VND</td>
+                                    <span class="subtotal">{{ number_format($ca->price * $ca->quantity, 0, ',', '.') }} VND</span>
+                                </td>
                                 <td class="actions" data-th="">
-                                    <a href="{{ route('detail.book', ['book' => $p]) }}"><button
-                                            class="btn btn-warning btn-sm">Xem chi tiết</button></a>
-                                    <form action="{{ route('cart.destroy', ['id' => $p->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" style="margin-top: 5px;">Xóa <i
-                                                class="fa fa-trash-o"></i></button>
-                                    </form>
+                                    <div style="display: flex; gap: 5px;">
+                                        <a href="{{ route('detail.book', ['book' => $p]) }}">
+                                            <button class="btn btn-warning btn-sm">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </button>
+                                        </a>
+                                        <button class="btn btn-danger btn-sm delete-item">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </div>
                                 </td>
                                 @php
                                     $total += $ca->price * $ca->quantity; // Cộng giá trị thành tiền vào tổng tiền
                                 @endphp
-                            @endif
-                        </tr>
+                            </tr>
+                        @endif
                     @endforeach
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
-                    <td><a href="{{ route('index') }}" class="btn btn-success"><i class="fa fa-angle-left"></i> Tiếp tục mua
-                            hàng</a>
+                    <td>
+                        <a href="{{ route('index') }}" class="btn btn-success">
+                            <i class="fa fa-angle-left"></i> Tiếp tục mua hàng
+                        </a>
                     </td>
                     <td colspan="2" class="hidden-xs"> </td>
-                    <td class="hidden-xs text-center"><strong>Tổng tiền {{ number_format($total, 0, ',', '.') }}
-                            VND</strong>
-
+                    <td class="hidden-xs text-center">
+                        <strong>Tổng tiền <span id="total">{{ number_format($total, 0, ',', '.') }} VND</span></strong>
                     </td>
                     <td>
                         <a href="{{ route('index.invoice') }}" class="btn btn-success btn-block">
@@ -87,4 +82,70 @@
             </tfoot>
         </table>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const quantityInputs = document.querySelectorAll('.update-quantity');
+            const deleteButtons = document.querySelectorAll('.delete-item');
+
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', function () {
+                    const id = this.dataset.id;
+                    const quantity = this.value;
+                    const price = this.dataset.price;
+                    const row = this.closest('tr');
+                    const subtotalElement = row.querySelector('.subtotal');
+                    
+                    fetch(`{{ route('cart.update.ajax', '') }}/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            quantity: quantity
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Cập nhật thành tiền
+                            const subtotal = quantity * price;
+                            subtotalElement.textContent = new Intl.NumberFormat('vi-VN').format(subtotal) + ' VND';
+                            
+                            // Cập nhật tổng tiền
+                            document.getElementById('total').textContent = new Intl.NumberFormat('vi-VN').format(data.total) + ' VND';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const row = this.closest('tr');
+                    const id = row.dataset.id;
+                    
+                    fetch(`{{ route('cart.destroy.ajax', '') }}/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Xóa hàng khỏi bảng
+                            row.remove();
+
+                            // Cập nhật tổng tiền
+                            document.getElementById('total').textContent = new Intl.NumberFormat('vi-VN').format(data.total) + ' VND';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
 @endsection

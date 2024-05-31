@@ -41,9 +41,9 @@ Route::middleware('auth')->group( function(){
     //Giỏ hàng
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartController::class, 'create'])->name('cart.add');
-    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy.ajax');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::post('/cart/update/{id}', [CartController::class, 'updateCart'])->name('cart.update.ajax');
 
     //Review
     Route::post('/reviews', [ReviewController::class, 'store'])->name('add.comment');
