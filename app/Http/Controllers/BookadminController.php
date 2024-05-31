@@ -1,20 +1,29 @@
 <?php
 
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
+
+use App\Models\Book;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
-use App\Models\Author;
-use App\Models\Book;
 use App\Models\Category;
+use App\Models\Author;
 use Illuminate\Support\Facades\Storage;
 
-class BookadminController extends Controller{
-    protected function fixImage(Book $p){
+
+class BookadminController extends Controller
+{
+
+    protected function fixImage(Book $p)
+    {
+        //tự dowdload hình ảnh bất kỳ vào và để vào thư mục public/img
         if ($p->img && Storage::disk('public')->exists($p->img)) {
             $p->img = Storage::url($p->img);
         }
+        // else {
+        //     $p->img = '/img/sgktoan.jpg';
+        // }
     }
-
     public function index(Book $p)
     {
         $lst = Book::all();
@@ -29,8 +38,12 @@ class BookadminController extends Controller{
         $lst1=Author::all();
         $lst =Category::all();
         return view('admin.books-create',['lst'=>$lst],['lst1'=>$lst1]);
+        //
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(StoreBookRequest $request)
     {
 
@@ -111,4 +124,5 @@ class BookadminController extends Controller{
         $book->delete();
         return redirect()->route('books.index');
     }
+    //
 }

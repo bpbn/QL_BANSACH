@@ -89,7 +89,7 @@
                         khoản</a>
                     <a href="{{ route('books.index') }}" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Quản
                         lý sản phẩm</a>
-                    {{-- <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Quản lý hóa đơn</a> --}}
+                    <a href="{{ route('invoices.index') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Quản lý hóa đơn</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Thống kê</a>
                     {{-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i

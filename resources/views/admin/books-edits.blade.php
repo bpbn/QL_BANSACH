@@ -16,7 +16,7 @@
         <div class="form-group" style="margin-top: 2rem">
             <label>Tên sách:</label><br>
             <input name="name" value="{{ old('name', $p->name) }}" />
-        </div>
+        </div> 
         <div class="form-group" style="margin-top: 1ch">
             <label>Mô tả:</label><br>
             <textarea name="description">{{ old('description', $p->description) }}</textarea>

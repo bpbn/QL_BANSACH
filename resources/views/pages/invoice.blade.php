@@ -56,26 +56,6 @@
                                 Please enter a valid email address shipping updates.
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <select class="form-select" id="provinceSelect" name="provinceSelect"
-                                    aria-label=".form-select-lg example">
-                                    <option selected>-- Chọn Tỉnh/Thành phố --</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select" id="districtSelect" name="districtSelect"
-                                    aria-label=".form-select-lg example">
-                                    <option selected>-- Chọn Quận/Huyện --</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select" id="wardSelect" name="wardSelect"
-                                    aria-label=".form-select-lg example">
-                                    <option selected>-- Chọn Phường/Xã --</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="mb-3">
                             <label for="address">Địa chỉ nhà(*)</label>
                             <input type="text" name="ShippingAddress" class="form-control" id="address"
@@ -108,135 +88,13 @@
                         </div>
                         <hr class="mb-4">
                         <button onclick="handleAddToInvoice(event)" class="btn btn-primary btn-lg btn-block mb-2"
-                            type="submit">Tiếp tục thanh
-                            toán</button>
+                            type="submit">Tiếp tục thanh toán</button>
                         <input type="hidden" name="addressSelect" id="addressSelect">
                     </form>
                 </div>
             </div>
         </div>
     </form>
-    <script>
-        let provinceSelect = document.getElementById('provinceSelect');
-        let districtSelect = document.getElementById('districtSelect');
-        let wardSelect = document.getElementById('wardSelect');
-        let provinceActive;
-        let districtActive;
-        let wardActive;
-        async function getALLProvinces() {
-            let provinces = [];
-            await fetch('https://vnprovinces.pythonanywhere.com/api/provinces/?basic=true&limit=100')
-                .then(res => res.json())
-                .then(data => {
-                    provinces = data.results;
-                })
-                .catch(err => console.console.error(err));
-            return provinces;
-        }
-        async function getALLDistricts(provinceId) {
-            let districts = [];
-            await fetch(
-                    `https://vnprovinces.pythonanywhere.com/api/districts/?province_id=${provinceId}&basic=true&limit=100`
-                )
-                .then(res => res.json())
-                .then(data => {
-                    districts = data.results;
-                })
-                .catch(err => console.console.error(err));
-            return districts;
-        }
-        async function getALLWards(districtId) {
-            let wards = [];
-            await fetch(
-                    `https://vnprovinces.pythonanywhere.com/api/wards/?district_id=${districtId}&basic=true&limit=100`)
-                .then(res => res.json())
-                .then(data => {
-                    wards = data.results;
-                })
-                .catch(err => console.console.error(err));
-            return wards;
-        }
-        async function loadDataProvinces() {
-            let provinces = await getALLProvinces();
-            let optionsHTML = '';
-            provinces?.forEach((item, index) => {
-                if (index === 0) {
-                    provinceActive = item.id
-                    optionsHTML += `<option selected value="${item.id}">${item.name}</option>`;
-                } else {
-                    optionsHTML += `<option value="${item.id}">${item.name}</option>`;
-                }
-            })
-            provinceSelect.innerHTML = optionsHTML;
-            await loadDataDistricts(provinceActive);
-            loadDataWards(districtActive);
-        }
-        async function loadDataDistricts(provinceId) {
-            let districts = await getALLDistricts(provinceId);
-            let optionsHTML = '';
-            districts?.forEach((item, index) => {
-                if (index === 0) {
-                    districtActive = item.id;
-                    optionsHTML += `<option selected value="${item.id}">${item.full_name}</option>`;
-                } else {
-                    optionsHTML += `<option value="${item.id}">${item.full_name}</option>`;
-                }
-            })
-            districtSelect.innerHTML = optionsHTML;
-        }
-        async function loadDataWards(districtId) {
-            let wards = await getALLWards(districtId);
-            let optionsHTML = '';
-            wards?.forEach((item, index) => {
-                if (index === 0) {
-                    optionsHTML += `<option selected value="${item.id}">${item.full_name}</option>`;
-                } else {
-                    optionsHTML += `<option value="${item.id}">${item.full_name}</option>`;
-                }
-            })
-            wardSelect.innerHTML = optionsHTML;
-            AddressSelectString();
-        }
-        loadDataProvinces();
-        provinceSelect.onchange = function() {
-            handleProvinceChange();
-        };
-        districtSelect.onchange = function() {
-            handleDistrictChange();
-        };
-        wardSelect.onchange = function() {
-            handleWardChange();
-        };
-
-        async function handleProvinceChange() {
-            let selectedOption = provinceSelect.options[provinceSelect.selectedIndex];
-            provinceActive = selectedOption.value;
-            await loadDataDistricts(provinceActive);
-            loadDataWards(districtActive);
-            AddressSelectString()
-        }
-
-        async function handleDistrictChange() {
-            let selectedOption = districtSelect.options[districtSelect.selectedIndex];
-            districtActive = selectedOption.value;
-            await loadDataWards(districtActive);
-            AddressSelectString()
-        }
-
-        function handleWardChange() {
-            let selectedOption = wardSelect.options[wardSelect.selectedIndex];
-            wardActive = selectedOption.value;
-            AddressSelectString()
-        }
-
-        function AddressSelectString() {
-            let selectedOptionProvince = provinceSelect.options[provinceSelect.selectedIndex];
-            let selectedOptionDistrict = districtSelect.options[districtSelect.selectedIndex];
-            let selectedOptionWard = wardSelect.options[wardSelect.selectedIndex];
-            let selectedOptionText = selectedOptionWard.text + ', ' + selectedOptionDistrict.text + ', ' + selectedOptionProvince.text;
-            document.getElementById('addressSelect').value = selectedOptionText;
-        }
-    </script>
     <script>
         function handleAddToInvoice(event) {
 

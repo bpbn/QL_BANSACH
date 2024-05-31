@@ -192,7 +192,7 @@
                     </svg>
                 </a>
                 <h5 class="ms-auto">Hỗ trợ khánh hàng</h5>
-                <p>Email: 0306211076@caothang.edu.vn</p>
+                <p>Email: bpbn@gmail.com</p>
                 <p>Hotline: <b style="color: rgb(18, 91, 193)">0344312253</b></p>
                 {{-- <p class="text-muted">&copy; 2021</p> --}}
             </div>
@@ -246,13 +246,13 @@
             <div class="block " id="content_FooterAddress">
                 <div class="blockcontent">
                     <div style="text-align: center;">
-                        Copyright &copy; 2014 bookstore.vn
+                        bookstore.vn
                     </div>
                     <div style="text-align: center;">
                         &nbsp;
                     </div>
                     <div style="text-align: center;">
-                        Địa chỉ: 1926, Võ Văn Kiệt P. 16, Quận 8, TP. Hồ Chí Minh </div>
+                        Địa chỉ: 140, Lê Trọng Tấn, phường Tây Thạnh, Quận Tân Phú, TP. Hồ Chí Minh </div>
                     <div style="text-align: center;">
                         &nbsp;
                     </div>
