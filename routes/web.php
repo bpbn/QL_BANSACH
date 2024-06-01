@@ -1,6 +1,9 @@
 <?php
 
+
+
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookadminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoritebookController;
 use App\Http\Controllers\HomeController;
@@ -10,6 +13,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PromotionalController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -29,9 +33,9 @@ Route::middleware('auth')->group( function(){
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::prefix('admin')->middleware('can:role')->group(function(){
-        Route::resource('/users',UserController::class);
+        Route::resource('/users', UserController::class);
         Route::resource('/books',BookadminController::class);
-        Route::resource('/invoices',InvoiceAdminController::class);
+        Route::resource('/invoices',InvoiceController::class);
         Route::get('dashboard', function(){
             return view('admin.dashboard');
         })->name('dashboard');
@@ -49,7 +53,7 @@ Route::middleware('auth')->group( function(){
 
     //Review
     Route::post('/reviews', [ReviewController::class, 'store'])->name('add.comment');
-    
+
     //yêu thích
     Route::get('/favorite', [FavoritebookController::class, 'index'])->name('favoritebook.index');
     Route::post('/favorite/add', [FavoritebookController::class, 'create'])->name('favoritebook.add');
@@ -85,7 +89,7 @@ Route::get('/user-show', function () {
 });
 
 Route::get('/invoice', function () {
-    //return view('welcome'); 
+    //return view('welcome');
     return view('pages.invoice');
 });
 
