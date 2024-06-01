@@ -25,20 +25,19 @@
 
     <h1>Web bán sách BookDor</h1>
     <div class="w3layoutscontaineragileits">
-        <h2>Đăng ký</h2>
-        <form method="post" action="{{ route('register') }}">
-            @csrf
-            <input name="name" placeholder="FULL NAME" required="">
-            <input name="email" placeholder="EMAIL" required="">
-            
-            <input name="password" placeholder="PASSWORD" required="">
-            <input name="password" placeholder="CONFIRM PASSWORD" required=""><br>
-            <ul class="agileinfotickwthree">
-                <li>
-                    <input type="checkbox" id="brand1" value="">
+        <input name="name" placeholder="FULL NAME" required="">
+        <input name="email" placeholder="EMAIL" required="">
+        
+        <input name="password" placeholder="PASSWORD" required="">
+        <input name="password" placeholder="CONFIRM PASSWORD" required="">
+        <input name="address" placeholder="ĐỊA CHỈ" required=""> <!-- Thêm trường Địa chỉ -->
+        <input name="phone" placeholder="SỐ ĐIỆN THOẠI" required=""><br>
+        <ul class="agileinfotickwthree">
+            <li>
+                <input type="checkbox" id="brand1" value="">
 
 
-                </li>
+            </li>
             </ul>
             <div class="aitssendbuttonw3ls">
                 <input type="submit" value="Tạo tài khoản">

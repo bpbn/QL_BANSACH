@@ -269,6 +269,7 @@ input[name="name"],
 input[type="text"],
 input[name="password"],
 input[name="email"],
+input[name="phone"],
 input[name="address"] {
     width: 84%;
     padding: 15px 10px 15px;

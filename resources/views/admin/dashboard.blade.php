@@ -11,42 +11,26 @@
 
     <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
-            <div class="col-sm-6 col-xl-3">
+
+            {{-- 2 bảng thực tế  --}}
+            {{-- <div class="col-sm-6 col-xl-6">
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-line fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Today Sale</p>
-                        <h6 class="mb-0">$1234</h6>
+                        <p class="mb-2">Doanh thu hôm nay</p>
+                        <h6 class="mb-0">{{ number_format($todayRevenue) }} VND</h6>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-xl-3">
+            <div class="col-sm-6 col-xl-6">
                 <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-chart-bar fa-3x text-primary"></i>
                     <div class="ms-3">
-                        <p class="mb-2">Total Sale</p>
-                        <h6 class="mb-0">$1234</h6>
+                        <p class="mb-2">Tổng số lượng SP đã bán hôm nay</p>
+                        <h6 class="mb-0">---</h6>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                    <i class="fa fa-chart-area fa-3x text-primary"></i>
-                    <div class="ms-3">
-                        <p class="mb-2">Today Revenue</p>
-                        <h6 class="mb-0">$1234</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                    <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                    <div class="ms-3">
-                        <p class="mb-2">Total Revenue</p>
-                        <h6 class="mb-0">$1234</h6>
-                    </div>
-                </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -56,145 +40,37 @@
             <div class="col-sm-12 col-xl-6">
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Worldwide Sales</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <canvas id="worldwide-sales"></canvas>
-                </div>
-            </div>
-            <div class="col-sm-12 col-xl-6">
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Salse & Revenue</h6>
-                        <a href="">Show All</a>
+                        <h6 class="mb-0">Doanh thu</h6>
                     </div>
                     <canvas id="salse-revenue"></canvas>
                 </div>
             </div>
+            <div class="col-sm-12 col-md-6 col-xl-4">
+                <div class="h-100 bg-secondary rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h6 class="mb-0">10 đơn hàng gần nhất</h6>
+                        <a href="">Show All</a>
+                    </div>
+                    @foreach($latestOrders as $order)
+                        <div class="d-flex align-items-center border-bottom py-3">
+                            <div class="w-100 ms-3">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-0">{{ $order['name'] }} - {{ $order['ShippingPhone'] }}</h6>
+                                    <small>d/m/Y H:i:s</small>
+                                </div>
+                                <span>{{ $order['ShippingAddress'] }}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- Sales Chart End -->
     <!-- Widgets Start -->
     <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
-            <div class="col-sm-12 col-md-6 col-xl-4">
-                <div class="h-100 bg-secondary rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h6 class="mb-0">Messages</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-3">
-                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-0">Jhon Doe</h6>
-                                <small>15 minutes ago</small>
-                            </div>
-                            <span>Short message goes here...</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-3">
-                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-0">Jhon Doe</h6>
-                                <small>15 minutes ago</small>
-                            </div>
-                            <span>Short message goes here...</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-3">
-                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-0">Jhon Doe</h6>
-                                <small>15 minutes ago</small>
-                            </div>
-                            <span>Short message goes here...</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center pt-3">
-                        <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-0">Jhon Doe</h6>
-                                <small>15 minutes ago</small>
-                            </div>
-                            <span>Short message goes here...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-xl-4">
-                <div class="h-100 bg-secondary rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Calender</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div id="calender"></div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-xl-4">
-                <div class="h-100 bg-secondary rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">To Do List</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div class="d-flex mb-2">
-                        <input class="form-control bg-dark border-0" type="text" placeholder="Enter task">
-                        <button type="button" class="btn btn-primary ms-2">Add</button>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>Short task goes here...</span>
-                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>Short task goes here...</span>
-                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox" checked>
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span><del>Short task goes here...</del></span>
-                                <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center border-bottom py-2">
-                        <input class="form-check-input m-0" type="checkbox">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>Short task goes here...</span>
-                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center pt-2">
-                        <input class="form-check-input m-0" type="checkbox">
-                        <div class="w-100 ms-3">
-                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                <span>Short task goes here...</span>
-                                <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- Widgets End -->
@@ -206,4 +82,35 @@
     <!-- Widgets Start -->
 
 
+
+
 @endsection
+
+@push('JS_REGION')
+    <script>
+        $(document).ready(function() {
+            var revenueData = @json(array_values($monthlyRevenue));
+            console.log('revenueData', revenueData)
+            var ctx2 = $("#salse-revenue").get(0).getContext("2d");
+            var myChart2 = new Chart(ctx2, {
+                type: "line",
+                data: {
+                    labels: ["T.1", "T.2", "T.3", "T.4", "T.5", "T.6", "T.7", "T.8", "T.9", "T.10", "T.11", "T.12"],
+                    datasets: [
+                        {
+                            label: "Doanh thu",
+                            data: revenueData,
+                            backgroundColor: "rgba(235, 22, 22, .5)",
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+
+        });
+    </script>
+@endpush

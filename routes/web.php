@@ -36,9 +36,7 @@ Route::middleware('auth')->group( function(){
         Route::resource('/users', UserController::class);
         Route::resource('/books',BookadminController::class);
         Route::resource('/invoices',InvoiceAdminController::class);
-        Route::get('dashboard', function(){
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     });
 
     Route::resource('/user', UserController::class);

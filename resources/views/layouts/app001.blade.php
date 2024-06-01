@@ -245,6 +245,7 @@
 
     <!-- Template Javascript -->
     <script src="/backend-admin/js/main.js"></script>
+    @stack('JS_REGION')
 </body>
 
 </html>
