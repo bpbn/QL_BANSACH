@@ -35,9 +35,9 @@ class HomeController extends Controller
     public function category(String $slug){
         $cats=Category::orderBy('name', 'ASC')->get();
         $cat=Category::where('slug', $slug)->first();
-        $book = Book::where('category_id', $cat->id)->get();
+        $book = Book::where('category_id', $cat->id)->paginate(8);
         if($key = request()->key){
-            $book = Book::orderBy('created_at', 'DESC')->where('name', 'like', '%' . $key . '%')->get();
+            $book = Book::orderBy('created_at', 'DESC')->where('name', 'like', '%' . $key . '%')->paginate(8);
         }
         foreach($book as $p){
             $this->fixImage($p);
