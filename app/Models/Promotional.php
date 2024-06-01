@@ -11,6 +11,6 @@ class Promotional extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'discount_id');
+        return $this->hasMany(Category::class, 'discount_id');
     }
 }

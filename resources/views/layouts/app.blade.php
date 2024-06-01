@@ -115,12 +115,14 @@
                         <a class="nav-link fa-solid fa-cart-shopping" href="{{ route('cart.index') }}"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link bi bi-heart-fill" href="{{ route('favoritebook.index') }}"></a>
+                        <a class="nav-link fa-solid fa-heart" href="{{ route('favoritebook.index') }}"></a>
                     </li>
                     @else
                     <li class="nav-item">
                         <a class="nav-link fa-solid fa-cart-shopping" onclick="alert('Vui lòng đăng nhập tài khoản')" href="#"></a>
-
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fa-solid fa-heart" href="#" onclick="alert('Vui lòng đăng nhập tài khoản')"></a>
                     </li>
                     @endif
                 </ul>

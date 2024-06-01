@@ -46,7 +46,9 @@ class HomeController extends Controller
     }
 
     public function show(){
-        $books = Book::all();
+        // $books = Book::all();
+        $books = Book::paginate(8);
+        // $books = Book::with('category.promotional')->paginate(8);
         $cats=Category::orderBy('name', 'ASC')->get();
         return view('pages.list-products', ['books' => $books, 'cats' => $cats]);
     }

@@ -14,6 +14,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     }
     public function promotional()
     {
-        return $this->hasMany(Promotional::class, 'id');
+        return $this->belongsTo(Promotional::class, 'discount_id');
     }
  }
