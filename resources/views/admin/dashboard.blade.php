@@ -80,10 +80,10 @@
 
 
     <!-- Widgets Start -->
-
-
-
-
+<?php
+    
+    ?>
+@endphp
 @endsection
 
 @push('JS_REGION')
