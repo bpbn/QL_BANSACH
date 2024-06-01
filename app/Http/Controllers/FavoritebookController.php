@@ -7,6 +7,7 @@ use App\Models\Favoritebook;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreFavoritebookRequest;
 use App\Http\Requests\UpdateFavoritebookRequest;
+use App\Models\Category;
 
 class FavoritebookController extends Controller
 {
@@ -17,8 +18,9 @@ class FavoritebookController extends Controller
     {
         $book = Book::orderBy('name', 'ASC')->get();
         $userId = auth()->user()->id;
+        $cats=Category::orderBy('name', 'ASC')->get();
         $favoritebookItems = Favoritebook::where('user_id', $userId)->get();
-        return view('pages.favoritebook', compact('favoritebookItems', 'book'));
+        return view('pages.favoritebook', compact('favoritebookItems', 'book', 'cats'));
     }
 
     /**

@@ -37,12 +37,11 @@
                                 <td data-th="Subtotal" class="text-center"> </td>
                                 <td class="actions" data-th="">
                                     <a href="{{ route('detail.book', ['book' => $p]) }}"><button
-                                            class="btn btn-info btn-sm">Xem chi tiết</button></a>
+                                            class="btn btn-secondary btn-sm"><i class="fa-solid fa-circle-info"></i></button></a>
                                     <form action="{{ route('favoritebook.destroy', ['id' => $p->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Xóa <i
-                                                class="fa fa-trash-o"></i></button>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             @endif
