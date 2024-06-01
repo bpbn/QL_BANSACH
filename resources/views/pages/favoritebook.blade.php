@@ -4,58 +4,82 @@
 @section('title', 'Trang chủ')
 
 @section('navbar')
-    @parent
-    <div class="container" style="margin-top: 65px">
-        <table id="favorite" class="table table-hover  table-condensed">
-            <thead>
-                <tr>
-                    <th style="width:50%">Tên sản phẩm</th>
-                    <th style="width:18%">Giá</th>
-                    <th style="width:22%" class="text-center"> </th>
-                    <th style="width:10%"> </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($favoritebookItems as $fa)
-                    @foreach ($book as $p)
-                        <tr>
-                            @if ($fa->book_id == $p->id)
-                                <td data-th="Product">
-                                    <div class="row">
-                                        <div class="col-sm-2 hidden-xs"><img src="{{ $p->img }}" alt="Sản phẩm 1"
-                                                class="img-responsive" width="100"
-                                                onerror="this.src='asset/img/no_image_placeholder.png';">
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <h4 class="nomargin" style="margin-left: 20px;">{{ $p->name }}</h4>
-                                            {{-- <p>{{ $p->description }}</p> --}}
-                                        </div>
-                                    </div>
-                                </td>
-                                <td data-th="Price">{{ number_format($fa->price, 0, ',', '.') }} VND</td>
-                                </td>
-                                <td data-th="Subtotal" class="text-center"> </td>
-                                <td class="actions" data-th="">
-                                    <a href="{{ route('detail.book', ['book' => $p]) }}"><button
-                                            class="btn btn-secondary btn-sm"><i class="fa-solid fa-circle-info"></i></button></a>
-                                    <form action="{{ route('favoritebook.destroy', ['id' => $p->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            @endif
-                        </tr>
-                    @endforeach
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td><a href="{{ route('index') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua
-                            hàng</a>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+@parent
+<div class="container" style="margin-top: 50px">
+    <div class="row row-cols-1 row-cols-md-5 g-4 mb-4" id="favorite">
+        @foreach ($favoritebookItems as $fa)
+
+        @foreach ($book as $p)
+
+        @if ($fa->book_id == $p->id)
+
+        @php
+        $discountPercentage = 0;
+        if($p->category && $p->category->promotional && $p->category->promotional != null){
+        $discountPercentage = $p->category->promotional->discount;
+        $discountedPrice = $p->price - ($p->price * ($discountPercentage / 100));
+        }
+        else
+        {
+        $discountedPrice = $p->price;
+        }
+        @endphp
+        <div class="col d-flex">
+            <div class="card m-3 d-flex flex-column" style="width: 18rem; height: 100%; position: relative;">
+                @if($discountPercentage != 0)
+                <div class="discount-badge" style="position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 5px; border-radius: 5px;">
+                    -{{ $discountPercentage }}%
+                </div>
+                @endif
+
+                <a href="{{ route('detail.book', $p->id) }}" class="d-flex flex-column align-items-center">
+                    <img src="{{ $p->img }}" class="card-img-top" style="width: 70%" alt="..." onerror="this.src='/asset/img/no_image_placeholder.png'">
+                </a>
+                <div class="card-body-product d-flex flex-column p-2">
+                    <a href="{{ route('detail.book', $p->id) }}" class="d-flex flex-column align-items-center">
+                        <h5 class="card-title">{{ strlen($p->name) > 15 ? substr($p->name, 0, 15) . '...' : $p->name }}</h5>
+                    </a>
+                </div>
+
+                {{--Hiển thị giá sản phẩm--}}
+                <div class="price-product " style="text-align: center; top: 20px">
+                    <div class="row d-flex" style="align-items: center;">
+                        <div class="col" style="color: red; font-size: 1.2em; font-weight: bold;">
+                            {{ number_format($discountedPrice, 0, ',', '.') }}đ
+                        </div>
+                        @if($discountPercentage != 0)
+                        <div class="col" style="text-decoration: line-through; color: gray; font-size: 0.9em;">
+                            {{ number_format($p->price, 0, ',', '.') }}đ
+                        </div>
+                        @endif
+                    </div>
+                </div>
+
+                <form action="{{ route('favoritebook.destroy', ['id' => $p->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <!-- Có thể thay đổi giá trị mặc định cho số lượng -->
+                    <button class="btn btn-outline-danger favorite-btn" type="submit"><i class="fa fa-trash-o"></i></button>
+
+                </form>
+                {{-- Người dùng đã đăng nhập --}}
+                <form action="{{ route('cart.add') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="book_id" value="{{ $p->id }}">
+                    <input type="hidden" name="price" value="{{ $p->price }}">
+                    <input type="hidden" name="quantity" value="1">
+
+                    <div class="mt-4 w-4">
+                        <button type="submit" class="btn btn-primary custom-btn" onclick="alert('Đã thêm thành công!')"> Thêm vào giỏ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @endif
+        @endforeach
+        @endforeach
     </div>
+    <a href="{{ route('index') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+</div>
 @endsection
