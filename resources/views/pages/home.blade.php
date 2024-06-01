@@ -50,7 +50,6 @@
             </div> -->
             <div class="col-md-9">
                 @foreach ($cats as $c)
-                    
                     <h3>Danh mục {{ $c->name }}</h3>
                     <div class="card-deck mb-2">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
