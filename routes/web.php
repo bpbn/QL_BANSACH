@@ -35,7 +35,7 @@ Route::middleware('auth')->group( function(){
     Route::prefix('admin')->middleware('can:role')->group(function(){
         Route::resource('/users', UserController::class);
         Route::resource('/books',BookadminController::class);
-        Route::resource('/invoices',InvoiceController::class);
+        Route::resource('/invoices',InvoiceAdminController::class);
         Route::get('dashboard', function(){
             return view('admin.dashboard');
         })->name('dashboard');
@@ -82,7 +82,7 @@ Route::get('/products', [HomeController::class, 'show'])->name('list-products');
 Route::fallback(function () {
     return view('pages.404');
 });
-Route::get('/payment', [PaymentController::class, 'index'])->name('index.payment');
+//Route::get('/payment', [PaymentController::class, 'index'])->name('index.payment');
 Route::get('/user-show', function () {
     //return view('welcome');
     return view('pages.user-show');

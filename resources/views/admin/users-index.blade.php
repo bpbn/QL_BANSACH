@@ -21,8 +21,8 @@
                 <th>Email</th>
                 <th>Address</th>
                 <th>Phone</th>
-                <th>Thân phận</th>
-                <th>Chức năng</th>
+                <th>Role</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -36,16 +36,16 @@
                     <td>{{ $p->role ? 'Admin' : 'Khách hàng' }}</td>
                     <td>
                         <a href="{{ route('users.show', ['user' => $p]) }}" class="btn btn-dark">
-                            Chi tiết
+                        <i class="fa-solid fa-circle-info"></i>
                         </a>
                         <a href="{{ route('users.edit',['user' => $p]) }}" class="btn btn-success">
-                            Sửa
+                        <i class="fa-regular fa-pen-to-square"></i>
                         </a>
                         <form method="post" action="{{ route('users.destroy', ['user' => $p]) }}" class="d-inline"
                             onsubmit="return confirm('Bạn có muốn xóa không')">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-warning">Xóa</button>
+                            <button class="btn btn-warning"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
                     </td>
 
