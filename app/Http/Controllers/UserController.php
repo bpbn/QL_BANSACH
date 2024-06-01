@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -10,11 +12,12 @@ use Monolog\Handler\RotatingFileHandler;
 class UserController extends Controller{
     public function index(){
         $lst=User::paginate();
+        //dd($lst);
         return view('admin.users-index', compact('lst'))->with('i', (request()->input('page', 1)-1)*5);
     }
 
     public function show(User $user){
-        return view('admin.users.show', ['p' => $user]);
+        return view('admin.users-show', ['p' => $user]);
     }
 
     public function create(){
