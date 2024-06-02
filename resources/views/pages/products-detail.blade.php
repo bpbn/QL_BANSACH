@@ -81,7 +81,7 @@
                                 <button class="btn btn-white border border-secondary px-3" type="button" id="decrement" data-mdb-ripple-color="dark">
                                     <i class="fas fa-minus"></i>
                                 </button>
-                                <input type="text" class="form-control text-center border border-secondary" name="quantity" id="quantity" placeholder=" Còn: {{ $book->quality }}" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                                <input type="text" class="form-control text-center border border-secondary" name="quantity" id="quantity" value="1" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled/>
                                 <button class="btn btn-white border border-secondary px-3" type="button" id="increment" data-mdb-ripple-color="dark">
                                     <i class="fas fa-plus"></i>
                                 </button>
