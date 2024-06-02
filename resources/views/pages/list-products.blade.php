@@ -86,7 +86,7 @@
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
                             <input type="hidden" name="book_id" value="{{ $p->id }}">
-                            <input type="hidden" name="price" value="{{ $p->price }}">
+                            <input type="hidden" name="price" value="{{ $discountedPrice }}">
                             <input type="hidden" name="quantity" value="1">
 
                             <div class="mt-4 w-4">

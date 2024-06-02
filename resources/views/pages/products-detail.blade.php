@@ -37,7 +37,7 @@
 
                     <div class="mb-3">
                         <div class="row d-flex" style="align-items: center;">
-                            <div class="col-3" style="color: red; font-size: 1.7em; font-weight: bold;">
+                            <div class="col-3" style="color: red; font-size: 1.7em; font-weight: bold; margin-right: 20px">
                                 {{ number_format($discountedPrice, 0, ',', '.') }}đ
                             </div>
                             @if($discountPercentage != 0)
@@ -78,76 +78,44 @@
                         <div class="col-md-4 col-6 mb-3">
                             <label class="mb-2 d-block">Số lượng</label>
                             <div class="input-group mb-3" style="width: 170px;">
-                                {{-- <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                                <button class="btn btn-white border border-secondary px-3" type="button" id="decrement" data-mdb-ripple-color="dark">
                                     <i class="fas fa-minus"></i>
-                                </button> --}}
-                                <input type="text" class="form-control text-center border border-secondary" placeholder="{{ $book->quality }}" aria-label="Example text with button addon" aria-describedby="button-addon1" />
-                                {{-- <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                                </button>
+                                <input type="text" class="form-control text-center border border-secondary" name="quantity" id="quantity" placeholder=" Còn: {{ $book->quality }}" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                                <button class="btn btn-white border border-secondary px-3" type="button" id="increment" data-mdb-ripple-color="dark">
                                     <i class="fas fa-plus"></i>
-                                </button> --}}
+                                </button>
                             </div>
                         </div>
 
-                        <div class="button-buy">
-                            @if (Auth::check())
-                            {{-- Người dùng đã đăng nhập --}}
-                            <form action="{{ route('cart.add') }}" method="POST">
+                        <div class="button-buy" style="display: flex; justify-content: space-evenly">
+                            @if(Auth::check())
+                            <form action="{{ route('cart.add') }}" method="POST" id="add-to-cart-form">
                                 @csrf
-                                <input type="hidden" name="book_id" value="{{ $p->id }}">
-                                <input type="hidden" name="price" value="{{ $p->price }}">
-                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                <input type="hidden" name="price" value="{{ $discountedPrice }}">
+                                <input type="hidden" name="quantity" id="form-quantity">
 
-                                <div class="mt-4 w-4">
-                                    <button type="submit" class="btn btn-primary custom-btn" onclick="alert('Đã thêm thành công!')"> Thêm vào giỏ</button>
-                                </div>
+                                <button class="btn btn-outline-success" type="submit" onclick="alert('Đã thêm thành công!')">Thêm vào giỏ hàng</button>
+
                             </form>
-                            <form action="{{ route('cart.add') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="book_id" value="{{ $p->id }}">
-                                <input type="hidden" name="price" value="{{ $p->price }}">
-                                <input type="hidden" name="quantity" value="1">
 
-                                <div class="mt-4 w-4">
-                                    <button type="submit" class="btn btn-primary custom-btn" onclick="alert('Đã thêm thành công!')"> Mua ngay</button>
-                                </div>
+                            <form action="{{ route('index.invoice') }}" method="POST" id="buy-now-form">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                <input type="hidden" name="price" value="{{ $discountedPrice }}">
+                                <input type="hidden" name="quantity" id="form-quantity">
+
+                                <button class="btn btn-danger" type="submit" onclick="alert('Đã thêm thành công!')">Mua ngay</button>
+
                             </form>
                             @else
-                            <div class="mt-4 w-4">
-                                <button type="submit" onclick="alert('Vui lòng đăng nhập vào tài khoản!')" class="btn btn-primary custom-btn">Thêm vào giỏ</button>
-                            </div>
-                            <div class="mt-4 w-4">
-                                <button class="btn btn-outline-danger favorite-btn" type="submit" onclick="alert('Vui lòng đăng nhập vào tài khoản!')"><i class="far fa-heart "></i></button>
-                            </div>
+                            <a class="btn btn-outline-success">Thêm vào giỏ hàng</a>
+                            <a class="btn btn-danger">Mua ngay</a>
                             @endif
-
                         </div>
+
                     </div>
-                    <div class="button-container">
-
-                        @if (Auth::check())
-                        <form action="{{ route('favoritebook.add') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                            <input type="hidden" name="price" value="{{ $book->price }}">
-
-                            <!-- Có thể thay đổi giá trị mặc định cho số lượng -->
-                            <button class="btn btn-outline-success favorite-btn-dt" type="submit" onclick="alert('Đã thêm thành công')"><i class="far fa-heart "></i></button>
-
-                        </form>
-                        {{-- Người dùng đã đăng nhập --}}
-                        <form action="{{ route('cart.add') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="book_id" value="{{ $book->id }}">
-                            <input type="hidden" name="price" value="{{ $book->price }}">
-                            <input type="hidden" name="quantity" value="1">
-                            <!-- Có thể thay đổi giá trị mặc định cho số lượng -->
-                            <button type="submit" style="margin-left: 10px;" class="btn shadow-0 btn-primary bi bi-cart-check" onclick="alert('Đã thêm thành công')"> Thêm vào giỏ</button>
-                        </form>
-                        @else
-                        {{-- Người dùng chưa đăng nhập --}}
-                        @endif
-                    </div>
-
                 </div>
             </main>
         </div>
@@ -275,6 +243,27 @@
                     behavior: 'smooth'
                 });
             }
+        });
+
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var quantityInput = document.getElementById('quantity');
+        var formQuantityInput = document.getElementById('form-quantity');
+        var incrementButton = document.getElementById('increment');
+        var decrementButton = document.getElementById('decrement');
+
+        incrementButton.addEventListener('click', function() {
+            var currentValue = parseInt(quantityInput.value);
+            quantityInput.value = isNaN(currentValue) ? 1 : currentValue + 1;
+            formQuantityInput.value = quantityInput.value;
+        });
+
+        decrementButton.addEventListener('click', function() {
+            var currentValue = parseInt(quantityInput.value);
+            quantityInput.value = isNaN(currentValue) || currentValue <= 1 ? 1 : currentValue - 1;
+            formQuantityInput.value = quantityInput.value;
         });
     });
 </script>
