@@ -47,7 +47,7 @@ class InvoiceController extends Controller
         $request->validate([
 
             'name' => 'required|string',
-            'addressSelect' => 'required|string',
+            // 'addressSelect' => 'required|string',
             'ShippingAddress' => 'required|string',
             'ShippingPhone' => 'required|string',
             // Add more validation rules as needed
@@ -55,16 +55,12 @@ class InvoiceController extends Controller
         // $arr = [
         //     $request->provinceSelect, $request->districtSelect, $request->wardSelect
         // ];
-        $total = $request->input('total');
         $name = $request->input('name');
         $ShippingPhone = $request->input('ShippingPhone');
-        $ShippingAddress = $request->input('ShippingAddress') . ', ' . $request->input('addressSelect');
+        $ShippingAddress = $request->input('ShippingAddress');
         $userId = auth()->user()->id; // Lấy ID của người dùng đã đăng nhập
 
-
         $invoice = new Invoice();
-
-
         $invoice->user_id = $userId;
         $invoice->name = $name;
         $invoice->ShippingAddress = $ShippingAddress;
@@ -80,20 +76,21 @@ class InvoiceController extends Controller
         }
         // Set Total to 1
         $invoice->total = $total;
-
-
-
         $invoice->save();
 
+        //Thêm chi tiết đơn hàng
+        $cartItems = Cart::where('user_id', $userId)->get();
+        foreach($cartItems as $item){
+            InvoiceDetail::create([
+                'quantity' => $item->quantity,
+                'invoice_id' => $invoice->id,
+                'book_id' => $item->book_id,
+            ]);
+            $item->delete();
+        }
 
-        return redirect()->back()->with('success', 'book added to cart successfully.');
+        return redirect()->route('index')->with('success', 'Bạn đã đặt hàng thành công. Đơn hàng sẽ được giao trong 2-5 ngày tới.');
     }
-
-    // public function otherPage(Request $request)
-    // {
-    //     $total = $request->input('total');
-    //     // Sử dụng giá trị $total ở đây
-    // }
 
     /**
      * Display the specified resource.

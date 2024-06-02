@@ -138,9 +138,9 @@
                             @can('role')
                             <a class="dropdown-item" href="{{ route('dashboard') }}">Quản trị viên</a>
                             @endcan
-                            <a href="{{ route('detail.index', Auth::user()->id) }}" class="dropdown-item">Thông
+                            {{-- <a href="{{ route('detail.index', Auth::user()->id) }}" class="dropdown-item">Thông
                                 tin
-                                cá nhân</a>
+                                cá nhân</a> --}}
                             <a href="#" class="dropdown-item">Cài đặt</a>
                             <form class="dropdown-item" method="post" action="{{ route('logout') }}">
                                 @csrf

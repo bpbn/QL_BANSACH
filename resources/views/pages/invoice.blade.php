@@ -88,13 +88,13 @@ use Illuminate\Support\Facades\Auth;
                                     </div>
             
                                     
-                                    <div class="mb-3" id="addressInput" style="display: none;">
+                                    {{-- <div class="mb-3" id="addressInput" style="display: none;">
                                         <label for="address">Địa chỉ nhà(*)</label>
                                         <input type="text" name="ShippingAddress" class="form-control" id="address" placeholder="Vui lòng nhập địa chỉ!">
                                         <div class="invalid-feedback">
                                             Please enter your shipping address.
                                         </div>
-                                    </div>
+                                    </div> --}}
             
                                     Thông Tin Chi Tiết 
                                     <br>
@@ -169,7 +169,7 @@ use Illuminate\Support\Facades\Auth;
                         </div>
                         <hr class="mb-4">
                         <button onclick="handleAddToInvoice(event)" class="btn btn-primary btn-lg btn-block mb-2" type="submit">Tiếp tục thanh toán</button>
-                        <input type="hidden" name="addressSelect" id="addressSelect">
+                        {{-- <input type="hidden" name="addressSelect" id="addressSelect"> --}}
                     </form>
                 </div>
             </div>
@@ -198,9 +198,9 @@ use Illuminate\Support\Facades\Auth;
             let username = document.getElementById('username').value;
             let email = document.getElementById('email').value;
             let address = document.getElementById('address').value;
-            let otherAddressChecked = document.getElementById('otherAddress').checked;
+            // let otherAddressChecked = document.getElementById('otherAddress').checked;
 
-            if (firstName === '' || lastName === '' || username === '' || email === '' || (otherAddressChecked && address === '')) {
+            if (firstName === '' || lastName === '' || username === '' || email === '' || address === '') {
                 // Nếu thông tin chưa đầy đủ, hiển thị thông báo lỗi
                 Swal.fire({
                     position: 'top',
