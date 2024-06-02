@@ -81,7 +81,7 @@
                                 <button class="btn btn-white border border-secondary px-3" type="button" id="decrement" data-mdb-ripple-color="dark">
                                     <i class="fas fa-minus"></i>
                                 </button>
-                                <input type="text" class="form-control text-center border border-secondary" name="quantity" id="quantity" value="1" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled/>
+                                <input type="text" class="form-control text-center border border-secondary" name="quantity" id="quantity" value="1" aria-label="Example text with button addon" aria-describedby="button-addon1" disabled />
                                 <button class="btn btn-white border border-secondary px-3" type="button" id="increment" data-mdb-ripple-color="dark">
                                     <i class="fas fa-plus"></i>
                                 </button>
@@ -100,18 +100,17 @@
 
                             </form>
 
-                            <form action="{{ route('index.invoice') }}" method="POST" id="buy-now-form">
+                            <form action="{{ route('favoritebook.add') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="book_id" value="{{ $book->id }}">
                                 <input type="hidden" name="price" value="{{ $discountedPrice }}">
-                                <input type="hidden" name="quantity" id="form-quantity">
 
-                                <button class="btn btn-danger" type="submit" onclick="alert('Đã thêm thành công!')">Mua ngay</button>
+                                <button class="btn btn-outline-danger far fa-heart button-custom" type="submit" onclick="alert('Đã thêm thành công!')"></button>
 
                             </form>
                             @else
-                            <a class="btn btn-outline-success">Thêm vào giỏ hàng</a>
-                            <a class="btn btn-danger">Mua ngay</a>
+                            <a class="btn btn-outline-success" onclick="alert('Vui lòng đăng nhập để thêm!')">Thêm vào giỏ hàng</a>
+                            <a class="btn btn-danger far fa-heart button-custom" onclick="alert('Vui lòng đăng nhập để thêm!')"></a>
                             @endif
                         </div>
 
@@ -128,7 +127,7 @@
         <div class="px-0 border rounded-2 shadow-0">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"></h5>
+                    <h5 class="card-title"> Đề xuất</h5>
                     <div class="row row-cols-4">
                         @foreach ($lst as $p)
                         @if ($p->id != $book->id)
@@ -146,7 +145,7 @@
                                         @endif
                                         @endforeach
                                     </a>
-                                    <strong class="text-dark"> {{ $p->price }}</strong>
+                                    <!-- <strong class="text-dark"> {{ $p->price }}</strong> -->
                                 </div>
                             </div>
                         </div>
@@ -267,6 +266,15 @@
         });
     });
 </script>
+
+<style>
+.button-custom {
+    width: 50px; /* Đặt chiều rộng cố định */
+    padding: 10px 0; /* Đặt khoảng đệm trên và dưới */
+    font-size: 16px; /* Đặt kích thước chữ */
+    text-align: center; /* Căn giữa chữ trong nút */
+}
+</style>
 
 
 
