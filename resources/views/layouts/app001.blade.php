@@ -91,7 +91,11 @@
                     <a href="{{ route('books.index') }}" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Quản
                         lý sản phẩm</a>
                     <a href="{{ route('invoices.index') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Quản lý hóa đơn</a>
+<<<<<<< HEAD
                     {{-- <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Thống kê</a> --}}
+=======
+                    <!-- <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Thống kê</a> -->
+>>>>>>> a6eb08c67671ca41966a9faf519a3d7ac8020d4e
                     {{-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="far fa-file-alt me-2"></i>Pages</a>
@@ -112,15 +116,24 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+    <a href="#" class="sidebar-toggler flex-shrink-0">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="navbar-nav ms-auto">
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                <img class="rounded-circle me-2" src="/asset/img/user.jpg" alt=""
+                    style="width: 40px; height: 40px;">
+                <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                <a href="#" class="dropdown-item">My Profile</a>
+                <a href="#" class="dropdown-item">Settings</a>
+                <form class="dropdown-item" method="post" action="{{ route('logout') }}">
+                    @csrf
+                    <input type="submit" value="Log out">
                 </form>
+<<<<<<< HEAD
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         {{-- <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -207,6 +220,12 @@
                     </div>
                 </div>
             </nav>
+=======
+            </div>
+        </div>
+    </div>
+</nav>
+>>>>>>> a6eb08c67671ca41966a9faf519a3d7ac8020d4e
             <!-- Navbar End -->
 
 

@@ -6,84 +6,45 @@
     @parent
 @endsection
 
-
 @section('content')
-
     <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
-
-            {{-- 2 bảng thực tế  --}}
-            {{-- <div class="col-sm-6 col-xl-6">
-                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                    <i class="fa fa-chart-line fa-3x text-primary"></i>
-                    <div class="ms-3">
-                        <p class="mb-2">Doanh thu hôm nay</p>
-                        <h6 class="mb-0">{{ number_format($todayRevenue) }} VND</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-6">
-                <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                    <div class="ms-3">
-                        <p class="mb-2">Tổng số lượng SP đã bán hôm nay</p>
-                        <h6 class="mb-0">---</h6>
-                    </div>
-                </div>
-            </div> --}}
-        </div>
-    </div>
-
-    <!-- Sales Chart Start -->
-    <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
-            <div class="col-sm-12 col-xl-6">
-                <div class="bg-secondary text-center rounded p-4">
+        <div class="row g-4 justify-content-center">
+            <!-- Sales Chart Start -->
+            <div class="col-md-8">
+                <div class="bg-secondary text-center rounded p-4 h-100">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Doanh thu</h6>
                     </div>
                     <canvas id="salse-revenue"></canvas>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6 col-xl-4">
-                <div class="h-100 bg-secondary rounded p-4">
+            <!-- Sales Chart End -->
+
+            <!-- Recent Orders Start -->
+            <div class="col-md-4">
+                <div class="h-100 bg-secondary rounded p-4" style="max-height: 500px; overflow-y: auto;">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h6 class="mb-0">10 đơn hàng gần nhất</h6>
-                        <a href="">Show All</a>
+                        <a href="">Xem tất cả</a>
                     </div>
-                    @foreach($latestOrders as $order)
-                        <div class="d-flex align-items-center border-bottom py-3">
-                            <div class="w-100 ms-3">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-0">{{ $order['name'] }} - {{ $order['ShippingPhone'] }}</h6>
-                                    <small>d/m/Y H:i:s</small>
+                    <div class="scrollable-content">
+                        @foreach($latestOrders as $order)
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">{{ $order['name'] }} - {{ $order['ShippingPhone'] }}</h6>
+                                        <small>{{ \Carbon\Carbon::parse($order['created_at'])->format('d/m/Y H:i:s') }}</small>
+                                    </div>
+                                    <span>{{ $order['ShippingAddress'] }}</span>
                                 </div>
-                                <span>{{ $order['ShippingAddress'] }}</span>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
-
+            <!-- Recent Orders End -->
         </div>
     </div>
-    <!-- Sales Chart End -->
-    <!-- Widgets Start -->
-    <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
-        </div>
-    </div>
-    <!-- Widgets End -->
-
-
-
-
-
-    <!-- Widgets Start -->
-
-
-
-
 @endsection
 
 @push('JS_REGION')
@@ -95,7 +56,7 @@
             var myChart2 = new Chart(ctx2, {
                 type: "line",
                 data: {
-                    labels: ["T.1", "T.2", "T.3", "T.4", "T.5", "T.6", "T.7", "T.8", "T.9", "T.10", "T.11", "T.12"],
+                    labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
                     datasets: [
                         {
                             label: "Doanh thu",
@@ -109,8 +70,6 @@
                     responsive: true
                 }
             });
-
-
         });
     </script>
 @endpush

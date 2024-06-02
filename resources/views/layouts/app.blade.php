@@ -35,11 +35,11 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <div class="container">
+    <!-- <div class="container">
 
-    </div>
+    </div> -->
     @section('navbar')
-    <nav class="navbar navbar-expand-lg navbar-light mt-0" style="background-color: white; box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);">
+    <nav class="navbar navbar-expand-lg navbar-light mt-0 sticky-top" style="background-color: white; box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);">
         <div class="container-fluid">
 
             <a class="navbar-brand " href="/"><img src="{{ asset('asset/img/logo.png') }}" style="width: 70px;" alt=""></a>

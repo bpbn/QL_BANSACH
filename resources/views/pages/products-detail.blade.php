@@ -21,9 +21,31 @@
 
                     </h4>
 
+                    @php
+                    // Lấy phần trăm giảm giá tương ứng với thể loại của sách
+                    $discountPercentage = 0; // Khởi tạo giá trị mặc định
+                    if ($book->category && $book->category->promotional && $book->category->promotional != null) {
+                    // Lặp qua danh sách Promotional của Category và lấy giá trị discount
+                    $discountPercentage = $book->category->promotional->discount;
+                    // Tính giá sau khi giảm
+                    $discountedPrice = $book->price - ($book->price * ($discountPercentage / 100));
+                    }
+                    else{
+                    $discountedPrice = $book->price;
+                    }
+                    @endphp
+
                     <div class="mb-3">
-                        <span class="h5">{{ $book->price }}</span>
-                        <span class="text-muted">/VND</span>
+                        <div class="row d-flex" style="align-items: center;">
+                            <div class="col-3" style="color: red; font-size: 1.7em; font-weight: bold;">
+                                {{ number_format($discountedPrice, 0, ',', '.') }}đ
+                            </div>
+                            @if($discountPercentage != 0)
+                            <div class="col-3" style="text-decoration: line-through; color: gray; font-size: 1.2em;">
+                                {{ number_format($book->price, 0, ',', '.') }}đ
+                            </div>
+                            @endif
+                        </div>
                     </div>
 
                     <!-- <p>
@@ -42,7 +64,7 @@
                     <hr />
 
                     <div class="row mb-4">
-                        <div class="col-md-4 col-6">
+                        <!-- <div class="col-md-4 col-6">
                             <label class="mb-2">Loại</label>
                             <select class="form-select border border-secondary" style="height: 35px;">
                                 @foreach ($cats as $c)
@@ -51,19 +73,53 @@
                                 @endif
                                 @endforeach
                             </select>
-                        </div>
+                        </div> -->
                         <!-- col.// -->
                         <div class="col-md-4 col-6 mb-3">
                             <label class="mb-2 d-block">Số lượng</label>
                             <div class="input-group mb-3" style="width: 170px;">
                                 {{-- <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-              <i class="fas fa-minus"></i>
-            </button> --}}
+                                    <i class="fas fa-minus"></i>
+                                </button> --}}
                                 <input type="text" class="form-control text-center border border-secondary" placeholder="{{ $book->quality }}" aria-label="Example text with button addon" aria-describedby="button-addon1" />
                                 {{-- <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-              <i class="fas fa-plus"></i>
-            </button> --}}
+                                    <i class="fas fa-plus"></i>
+                                </button> --}}
                             </div>
+                        </div>
+
+                        <div class="button-buy">
+                            @if (Auth::check())
+                            {{-- Người dùng đã đăng nhập --}}
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $p->id }}">
+                                <input type="hidden" name="price" value="{{ $p->price }}">
+                                <input type="hidden" name="quantity" value="1">
+
+                                <div class="mt-4 w-4">
+                                    <button type="submit" class="btn btn-primary custom-btn" onclick="alert('Đã thêm thành công!')"> Thêm vào giỏ</button>
+                                </div>
+                            </form>
+                            <form action="{{ route('cart.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $p->id }}">
+                                <input type="hidden" name="price" value="{{ $p->price }}">
+                                <input type="hidden" name="quantity" value="1">
+
+                                <div class="mt-4 w-4">
+                                    <button type="submit" class="btn btn-primary custom-btn" onclick="alert('Đã thêm thành công!')"> Mua ngay</button>
+                                </div>
+                            </form>
+                            @else
+                            <div class="mt-4 w-4">
+                                <button type="submit" onclick="alert('Vui lòng đăng nhập vào tài khoản!')" class="btn btn-primary custom-btn">Thêm vào giỏ</button>
+                            </div>
+                            <div class="mt-4 w-4">
+                                <button class="btn btn-outline-danger favorite-btn" type="submit" onclick="alert('Vui lòng đăng nhập vào tài khoản!')"><i class="far fa-heart "></i></button>
+                            </div>
+                            @endif
+
                         </div>
                     </div>
                     <div class="button-container">
@@ -215,7 +271,9 @@
                 descriptionFull.style.display = 'none';
                 descriptionShort.style.display = 'block';
                 toggleButton.textContent = 'Hiện thêm';
-                mainTitle.scrollIntoView({ behavior: 'smooth' });
+                mainTitle.scrollIntoView({
+                    behavior: 'smooth'
+                });
             }
         });
     });
