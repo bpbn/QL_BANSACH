@@ -91,7 +91,7 @@
                     <a href="{{ route('books.index') }}" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Quản
                         lý sản phẩm</a>
                     <a href="{{ route('invoices.index') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Quản lý hóa đơn</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Thống kê</a>
+                    {{-- <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Thống kê</a> --}}
                     {{-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="far fa-file-alt me-2"></i>Pages</a>
@@ -197,7 +197,7 @@
                         </a>
                         <div
                             class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="{{route('index')}}" class="dropdown-item">quay về trang chủ</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <form class="dropdown-item" method="post" action="{{ route('logout') }}">
                                 @csrf
