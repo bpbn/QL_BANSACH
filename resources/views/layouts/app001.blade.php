@@ -91,11 +91,7 @@
                     <a href="{{ route('books.index') }}" class="nav-item nav-link"><i class="fa fa-book me-2"></i>Quản
                         lý sản phẩm</a>
                     <a href="{{ route('invoices.index') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Quản lý hóa đơn</a>
-<<<<<<< HEAD
                     {{-- <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Thống kê</a> --}}
-=======
-                    <!-- <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Thống kê</a> -->
->>>>>>> a6eb08c67671ca41966a9faf519a3d7ac8020d4e
                     {{-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="far fa-file-alt me-2"></i>Pages</a>
@@ -133,7 +129,6 @@
                     @csrf
                     <input type="submit" value="Log out">
                 </form>
-<<<<<<< HEAD
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         {{-- <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -220,12 +215,6 @@
                     </div>
                 </div>
             </nav>
-=======
-            </div>
-        </div>
-    </div>
-</nav>
->>>>>>> a6eb08c67671ca41966a9faf519a3d7ac8020d4e
             <!-- Navbar End -->
 
 
