@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
+use Illuminate\Http\Request;
 use PDF;
 
 class InvoiceadminController extends Controller
@@ -12,7 +13,7 @@ class InvoiceadminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index()
     {
         $lst = Invoice::all();
@@ -56,17 +57,41 @@ class InvoiceadminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInvoiceRequest $request, Invoice $invoice)
+    public function update(StoreInvoiceRequest $request, Invoice $invoice)
     {
-        //
-        $invoice->fill([
-
-            'status' => $request->status
+        $request->validate([
+            'status' => 'required|string'
         ]);
 
+        $invoice->status = $request->input('status');
         $invoice->save();
-        return redirect()->route('invoices.index', ['invoice' => $invoice]);
+
+        return response()->json(['success' => 'Cập nhật trạng thái thành công!']);
     }
+
+    public function thayDoiTrangThaiDonHang(Request $request)
+    {
+        $orderId = $request->input('order_id');
+        $newStatus = $request->input('new_status');
+
+        $invoice = Invoice::find($orderId);
+
+        $invoice->status = $newStatus;
+        $kq = $invoice->save();
+
+        if ($kq) {
+            return response()->json([
+                'message' => 'Trạng thái đơn hàng đã được cập nhật thành công',
+                'success' => true
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Thất bại',
+                'success' => false
+            ], 501);
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
