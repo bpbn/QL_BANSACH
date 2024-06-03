@@ -35,9 +35,11 @@ Route::middleware('auth')->group( function(){
     Route::prefix('admin')->middleware('can:role')->group(function(){
         Route::resource('/users', UserController::class);
         Route::resource('/books',BookadminController::class);
-        Route::resource('/invoices',InvoiceAdminController::class);
+        Route::resource('/invoices', InvoiceAdminController::class);
         Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     });
+
+    Route::post('/thayDoiTrangThaiDonHang', [InvoiceAdminController::class, 'thayDoiTrangThaiDonHang'])->name('thayDoiTrangThaiDonHang');
 
     Route::resource('/user', UserController::class);
     Route::get('/user/{user}', [UserController::class, 'detail'])->name('detail.index');

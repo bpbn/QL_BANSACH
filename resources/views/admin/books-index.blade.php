@@ -52,8 +52,9 @@
     </tbody>
 </table>
 
-
-
+<div class="d-flex justify-content-center">
+    {{ $lst->links('vendor.pagination.bootstrap-4') }}
+</div>
 
 
 @endsection

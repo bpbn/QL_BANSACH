@@ -26,7 +26,8 @@ class BookadminController extends Controller
     }
     public function index(Book $p)
     {
-        $lst = Book::all();
+        $lst = Book::paginate(10); // Lấy 10 sản phẩm mỗi trang
+
 
         foreach ($lst as $p) {
             $this->fixImage($p);
@@ -87,7 +88,7 @@ class BookadminController extends Controller
         $this->fixImage($book);
         $lst1 = Author::all();
         $lst = Category::all();
-        return view('admin.books-edit', ['p' => $book,'lst1' => $lst1, 'lst'=>$lst]);
+        return view('admin.books-edits', ['p' => $book,'lst1' => $lst1, 'lst'=>$lst]);
     }
 
     /**

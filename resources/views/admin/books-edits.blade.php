@@ -62,7 +62,7 @@
 
 
 
-        <button style="margin-top: 1ch" class="btn btn-success">Sữa</button>
+        <button style="margin-top: 1ch" class="btn btn-success">Sửa</button>
 
     </form>
 
