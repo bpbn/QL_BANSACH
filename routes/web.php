@@ -50,7 +50,9 @@ Route::middleware('auth')->group( function(){
     Route::post('/cart/update/{id}', [CartController::class, 'updateCart'])->name('cart.update.ajax');
 
     //Review
-    Route::post('/reviews', [ReviewController::class, 'store'])->name('add.comment');
+    Route::post('/reviews/{book_id}', [ReviewController::class, 'create'])->name('add.comments');
+    Route::put('/reviews/update/{id}', [ReviewController::class, 'update'])->name('comments.update');
+    Route::delete('/reviews/delete/{id}', [ReviewController::class, 'destroy'])->name('comments.destroy');
 
     //yêu thích
     Route::get('/favorite', [FavoritebookController::class, 'index'])->name('favoritebook.index');
