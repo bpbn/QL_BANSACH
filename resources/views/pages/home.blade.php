@@ -69,7 +69,7 @@
                 </a>
                 <div class="card-body-product d-flex flex-column p-2">
                     <a href="{{ route('detail.book', $p->id) }}" class="d-flex flex-column align-items-center">
-                        <h5 class="card-title">{{ strlen($p->name) > 15 ? substr($p->name, 0, 15) . '...' : $p->name }}</h5>
+                        <h5 class="card-title">{{ $p->name }}</h5>
                     </a>
                 </div>
 

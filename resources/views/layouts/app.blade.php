@@ -79,6 +79,9 @@
                                 </ul>
                             </div>
                         </li>
+                        <li>
+                            <button class="btn"><a href="{{ route('books-search') }}" style="color: black;">Tham khảo thêm</a></button>
+                        </li>
                     </ul>
                 </div>
 

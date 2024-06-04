@@ -108,3 +108,7 @@ Route::get('/detail', function () {
 Route::get('slug/{slug}', function($slug){
     return Str::slug($slug);
 });
+
+Route::get('/books-search', function () {
+    return view('books-search');
+})->name('books-search');
