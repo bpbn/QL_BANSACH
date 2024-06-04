@@ -165,11 +165,11 @@
             <h4>Bình luận</h4>
             <div class="panel-body">
                 @if (Auth::check())
-                <form action="{{ route('add.comment', $book->id) }}" method="post">
+                <form action="{{ route('add.comments', $book->id) }}" method="POST">
                     @csrf
-                    <input type="text" class="form-control" name="comment" placeholder="What are you thinking?" autofocus>
+                    <input type="text" class="form-control" name="Comment" placeholder="What are you thinking?" autofocus>
                     <div class="mar-top clearfix">
-                        <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
+                        <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Bình luận</button>
                     </div>
                 </form>
                 @else
@@ -179,7 +179,9 @@
         </div>
         <div class="panel">
             <div class="panel-body">
-
+                @if ($comments->isEmpty())
+                <p>Sản phẩm này chưa có bình luận!</p>
+                @else
                 @foreach ($comments as $com)
                 <!-- Newsfeed Content -->
                 <!--===================================================-->
@@ -189,26 +191,26 @@
                         <div class="mar-btm">
                             <a href="#" class="btn-link text-semibold media-heading box-inline">{{ $com->user->name }}</a>
                             <p class="text-muted text-sm">{{ $com->created_at->format('d/m/Y') }}</p>
-                            <p>{{$com->Comment}}</p>
+                            <!-- <p>{{$com->Comment}}</p> -->
                         </div>
-                        <p>{{ $com->comment }}</p>
+                        <p>{{ $com->Comment }}</p>
                         @if (Auth::id() == $com->user_id)
                         <div class="pad-ver">
                             <div class="btn-group">
                                 <form action="{{ route('comments.update', ['id' => $com->id]) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <label for="toggle-{{ $com->id }}" id="btn-label-{{ $com->id }}"><i class="bi bi-pen-fill"></i>Sửa</label>
+                                    <label class="btn btn-outline-warning" for="toggle-{{ $com->id }}" id="btn-label-{{ $com->id }}"><i class="bi bi-pen-fill"></i>Sửa</label>
                                     <input type="checkbox" id="toggle-{{ $com->id }}" style="display: none;" class="toggle-checkbox" data-bs-toggle="collapse" data-bs-target="#textbox-container-{{ $com->id }}" aria-expanded="false" aria-controls="textbox-container-{{ $com->id }}">
                                     <div id="textbox-container-{{ $com->id }}" class="collapse">
-                                        <input type="text" id="textbox-{{ $com->id }}" name="comment" placeholder="Nhập dữ liệu">
-                                        <button id="save-btn-{{ $com->id }}" type="submit">Lưu</button>
+                                        <input class="form-control" type="text" id="textbox-{{ $com->id }}" name="Comment" placeholder="Nhập dữ liệu">
+                                        <button class="btn btn-success" id="save-btn-{{ $com->id }}" type="submit">Lưu</button>
                                     </div>
                                 </form>
                                 <form action="{{ route('comments.destroy', ['id' => $com->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa comment này không?')" class="delete-button"><i class="bi bi-trash"></i> Xóa</button>
+                                    <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa comment này không?')" class="delete-button"><i class="bi bi-trash"></i> Xóa</button>
                                 </form>
                             </div>
                         </div>
@@ -217,6 +219,7 @@
                     </div>
                 </div>
                 @endforeach
+                @endif
             </div>
         </div>
     </div>
@@ -268,12 +271,16 @@
 </script>
 
 <style>
-.button-custom {
-    width: 50px; /* Đặt chiều rộng cố định */
-    padding: 10px 0; /* Đặt khoảng đệm trên và dưới */
-    font-size: 16px; /* Đặt kích thước chữ */
-    text-align: center; /* Căn giữa chữ trong nút */
-}
+    .button-custom {
+        width: 50px;
+        /* Đặt chiều rộng cố định */
+        padding: 10px 0;
+        /* Đặt khoảng đệm trên và dưới */
+        font-size: 16px;
+        /* Đặt kích thước chữ */
+        text-align: center;
+        /* Căn giữa chữ trong nút */
+    }
 </style>
 
 

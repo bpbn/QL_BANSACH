@@ -20,23 +20,18 @@ class ReviewController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create($prod)
     {
         //
-        $request->validate([
-            'comment' => 'required',
-            'rating' => 'required|integer|min:1|max:5',
-            'book_id' => 'required|exists:books,id',
-        ]);
+        $comment = request()->all('Comment');
+        $comment['book_id']=$prod;
+        $comment['user_id']= auth()->id();
 
-        Review::create([
-            'comment' => $request->input('comment'),
-            'rating' => $request->input('rating'),
-            'book_id' => $request->input('book_id'),
-            'user_id' => auth()->id(),
-        ]);
 
-        return redirect()->back()->with('success', 'Review added successfully.');
+        if (Review::create($comment)) {
+            return redirect()->back();
+        }
+        return redirect()->back();
     }
 
     /**
@@ -66,16 +61,40 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReviewRequest $request, Review $review)
+    public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'Comment' => 'required|string',
+        ]);
+
+        // Lấy dữ liệu mới từ request
+        $newContent = $request->input('Comment');
+
+        // Tìm comment cần sửa
+        $comment = Review::findOrFail($id);
+
+        // Cập nhật nội dung của comment
+        $comment->Comment = $newContent;
+        $comment->save();
+
+        // Phản hồi thành công hoặc chuyển hướng đến trang khác
+        return redirect()->back()->with('success', 'Sửa comment thành công');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $review)
+    public function destroy($id)
     {
         //
+        // Tìm comment cần xóa
+        $comment = Review::findOrFail($id);
+
+        // Xóa comment
+        $comment->delete();
+
+        // Phản hồi thành công hoặc chuyển hướng đến trang khác
+        return redirect()->back()->with('success', 'Xóa comment thành công');
     }
 }
