@@ -200,17 +200,17 @@
                                 <form action="{{ route('comments.update', ['id' => $com->id]) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <label for="toggle-{{ $com->id }}" id="btn-label-{{ $com->id }}"><i class="bi bi-pen-fill"></i>Sửa</label>
+                                    <label class="btn btn-outline-warning" for="toggle-{{ $com->id }}" id="btn-label-{{ $com->id }}"><i class="bi bi-pen-fill"></i>Sửa</label>
                                     <input type="checkbox" id="toggle-{{ $com->id }}" style="display: none;" class="toggle-checkbox" data-bs-toggle="collapse" data-bs-target="#textbox-container-{{ $com->id }}" aria-expanded="false" aria-controls="textbox-container-{{ $com->id }}">
                                     <div id="textbox-container-{{ $com->id }}" class="collapse">
-                                        <input type="text" id="textbox-{{ $com->id }}" name="Comment" placeholder="Nhập dữ liệu">
-                                        <button id="save-btn-{{ $com->id }}" type="submit">Lưu</button>
+                                        <input class="form-control" type="text" id="textbox-{{ $com->id }}" name="Comment" placeholder="Nhập dữ liệu">
+                                        <button class="btn btn-success" id="save-btn-{{ $com->id }}" type="submit">Lưu</button>
                                     </div>
                                 </form>
                                 <form action="{{ route('comments.destroy', ['id' => $com->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa comment này không?')" class="delete-button"><i class="bi bi-trash"></i> Xóa</button>
+                                    <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa comment này không?')" class="delete-button"><i class="bi bi-trash"></i> Xóa</button>
                                 </form>
                             </div>
                         </div>
