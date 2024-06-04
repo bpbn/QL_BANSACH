@@ -31,6 +31,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 
+    <!-- Fchat<script src="//fchat.vn/embed/js/665f2a204c330150ca476472" async="async"></script> -->
+    <!--Start of Fchat.vn--><script type="text/javascript" src="https://cdn.fchat.vn/assets/embed/webchat.js?id=665f2f678923f8424d6517af" async="async"></script><!--End of Fchat.vn-->
 
 </head>
 
@@ -142,8 +144,8 @@
                             <a class="dropdown-item" href="{{ route('dashboard') }}">Quản trị viên</a>
                             @endcan
                             {{-- <a href="{{ route('detail.index', Auth::user()->id) }}" class="dropdown-item">Thông
-                                tin
-                                cá nhân</a> --}}
+                            tin
+                            cá nhân</a> --}}
                             <a href="#" class="dropdown-item">Cài đặt</a>
                             <form class="dropdown-item" method="post" action="{{ route('logout') }}">
                                 @csrf
@@ -185,8 +187,11 @@
     </div> -->
     @show
 
+    
 
     @section('footer')
+
+    
 
     <div class="container-fluid mt-auto" style="margin-top: 50px;font-family: Verdana,Arial,Helvetica,sans-serif;background-color: #e3f2fd; ">
         <footer class="row row-cols-5 py-5 my-0 border-top" style="margin-bottom: 0px;">
