@@ -89,7 +89,7 @@ class InvoiceController extends Controller
             $item->delete();
         }
 
-        return redirect()->route('index')->with('success', 'Bạn đã đặt hàng thành công. Đơn hàng sẽ được giao trong 2-5 ngày tới.');
+        return redirect()->route('index')->with('success', 'Bạn đã đặt hàng thành công.');
     }
 
     /**

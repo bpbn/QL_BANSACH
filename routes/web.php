@@ -16,6 +16,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use App\Http\Controllers\VNPayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +30,12 @@ use Illuminate\Support\Str;
 */
 
 //Bắt buộc đăng nhập
-Route::middleware('auth')->group( function(){
+Route::middleware('auth')->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::prefix('admin')->middleware('can:role')->group(function(){
+    Route::prefix('admin')->middleware('can:role')->group(function () {
         Route::resource('/users', UserController::class);
-        Route::resource('/books',BookadminController::class);
+        Route::resource('/books', BookadminController::class);
         Route::resource('/invoices', InvoiceAdminController::class);
         Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     });
@@ -50,6 +51,7 @@ Route::middleware('auth')->group( function(){
     Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy.ajax');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::post('/cart/update/{id}', [CartController::class, 'updateCart'])->name('cart.update.ajax');
+
 
     //Review
     Route::post('/reviews/{book_id}', [ReviewController::class, 'create'])->name('add.comments');
@@ -105,7 +107,7 @@ Route::get('/detail', function () {
     return view('pages.invoice-detail');
 });
 
-Route::get('slug/{slug}', function($slug){
+Route::get('slug/{slug}', function ($slug) {
     return Str::slug($slug);
 });
 

@@ -20,6 +20,7 @@
             <th>Thời gian đặt hàng</th>
             <th>Tổng tiền</th>
             <th>Trạng thái</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +42,11 @@
                         <option value="Đã hoàn thành">Đã hoàn thành</option>
                     </select>
                 </form>
+            </td>
+            <td>
+                <a href="{{ route('books.edit', ['book' => $p]) }}" class="btn btn-success">
+                <i class="fa-solid fa-qrcode"></i>
+                </a>
             </td>
         </tr>
         @endforeach
