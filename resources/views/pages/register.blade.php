@@ -23,8 +23,14 @@
 
 <body>
 
-    <h1>Web bán sách BookDor</h1>
+    {{-- <h1>Web bán sách BookDor</h1>
+    <div class="w3layoutscontaineragileits"> --}}
+        <h1>Web bán sách BookDor</h1>
     <div class="w3layoutscontaineragileits">
+        <h2>Đăng ký</h2>
+        <form method="post" action="{{ route('register') }}">
+            @csrf
+
         <input name="name" placeholder="FULL NAME" required="">
         <input name="email" placeholder="EMAIL" required="">
         
