@@ -94,7 +94,7 @@
                                 @csrf
                                 <input type="hidden" name="book_id" value="{{ $book->id }}">
                                 <input type="hidden" name="price" value="{{ $discountedPrice }}">
-                                <input type="hidden" name="quantity" id="form-quantity">
+                                <input type="hidden" name="quantity" id="form-quantity" value="1">
 
                                 <button class="btn btn-outline-success" type="submit" onclick="alert('Đã thêm thành công!')">Thêm vào giỏ hàng</button>
 
@@ -255,6 +255,7 @@
         var formQuantityInput = document.getElementById('form-quantity');
         var incrementButton = document.getElementById('increment');
         var decrementButton = document.getElementById('decrement');
+        var addToCartForm = document.getElementById('add-to-cart-form');
 
         incrementButton.addEventListener('click', function() {
             var currentValue = parseInt(quantityInput.value);
@@ -265,6 +266,10 @@
         decrementButton.addEventListener('click', function() {
             var currentValue = parseInt(quantityInput.value);
             quantityInput.value = isNaN(currentValue) || currentValue <= 1 ? 1 : currentValue - 1;
+            formQuantityInput.value = quantityInput.value;
+        });
+
+        addToCartForm.addEventListener('submit', function() {
             formQuantityInput.value = quantityInput.value;
         });
     });
