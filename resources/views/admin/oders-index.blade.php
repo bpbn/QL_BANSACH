@@ -8,8 +8,6 @@
 
 @section('content')
 
-
-
     <h1 style="text-align: center; color:black;">Danh sách hóa đơn</h1>
     <table style="margin-top: 1ch;" class="table table-light">
         <thead class="table-danger">
@@ -44,7 +42,7 @@
                         </form>
                     </td>
                     <td>
-                        <a href="{{ route('qrcode') }}" class="btn btn-success">
+                        <a href="{{ route('admin.qrcode', ['id' => $p->id]) }}" class="btn btn-success">
                             <i class="fa-solid fa-qrcode"></i>
                         </a>
                     </td>
@@ -52,8 +50,6 @@
             @endforeach
         </tbody>
     </table>
-
-
 
     <script>
         $(document).ready(function() {
@@ -72,7 +68,7 @@
                     success: function(response) {
                         alert(response.message);
                     },
-                    error: function(respone) {
+                    error: function(response) {
                         alert(response.error);
                     }
                 });

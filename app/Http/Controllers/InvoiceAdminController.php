@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class InvoiceadminController extends Controller
+class InvoiceAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -97,20 +97,28 @@ class InvoiceadminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function showInvoice($id)
-    {
-        $invoice = Invoice::with('invoiceDetails', 'user')->findOrFail($id);
-        $item = $invoice->invoiceDetails->first();
+    public function showQRCode($id)
+{
+    $invoice = Invoice::with('invoiceDetails.book')->findOrFail($id);
 
-        $data = [
-            'quantity' => $item->quantity,
-            'invoice_id' => $invoice->id,
-            'book_id' => $item->book_id,
-        ];
-
-        $qrCode = QrCode::size(200)->generate(json_encode($data));
-        return view('invoice.show', compact('invoice', 'qrCode'));
+    if ($invoice->invoiceDetails->isEmpty()) {
+        abort(404, 'No invoice details found.');
     }
+
+    $item = $invoice->invoiceDetails->first();
+
+    $data = [
+        'invoice_id' => $invoice->id,
+        'customerName' => $invoice->user->name,
+        'book_name' => $item->book->name,
+        'quantity' => $item->quantity,
+    ];
+
+    $qrCode = QrCode::size(200)->generate(json_encode($data));
+    return view('admin.qrcode', compact('qrCode'));
+}
+    
+
 }
 
 

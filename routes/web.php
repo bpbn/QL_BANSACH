@@ -7,12 +7,11 @@ use App\Http\Controllers\BookadminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoritebookController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InvoiceadminController;
+use App\Http\Controllers\InvoiceAdminController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PromotionalController;
-use App\Http\Controllers\QRcodeGenerateController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +40,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     });
 
+    Route::get('/invoice/qrcode/{id}', [InvoiceadminController::class, 'showQRCode'])->name('admin.qrcode');
+    
     Route::post('/thayDoiTrangThaiDonHang', [InvoiceAdminController::class, 'thayDoiTrangThaiDonHang'])->name('thayDoiTrangThaiDonHang');
 
     Route::resource('/user', UserController::class);
@@ -82,8 +83,6 @@ Route::post('register', [LoginController::class, 'postregister'])->name('registe
 Route::resource('/', BookController::class);
 Route::resource('/promotional', PromotionalController::class);
 Route::get('/products', [HomeController::class, 'show'])->name('list-products');
-//QR
-Route::get('/qrcode', [QRcodeGenerateController::class, 'qrcode'])->name('qrcode');
 //
 Route::fallback(function () {
     return view('pages.404');
