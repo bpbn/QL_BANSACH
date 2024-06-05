@@ -11,6 +11,8 @@ use App\Models\Cart;
 use App\Models\InvoiceDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mail;
+use App\Mail\SendMailCart;
 
 class InvoiceController extends Controller
 {
@@ -58,13 +60,10 @@ class InvoiceController extends Controller
         $name = $request->input('name');
         $ShippingPhone = $request->input('ShippingPhone');
         $ShippingAddress = $request->input('ShippingAddress');
+        $user = auth()->user();
         $userId = auth()->user()->id; // Lấy ID của người dùng đã đăng nhập
 
-        $invoice = new Invoice();
-        $invoice->user_id = $userId;
-        $invoice->name = $name;
-        $invoice->ShippingAddress = $ShippingAddress;
-        $invoice->ShippingPhone = $ShippingPhone;
+
         // Tính tổng giỏ hàng
         $user_id = Auth::id();
         $carts = Cart::where('user_id', $user_id)->get();
@@ -74,9 +73,17 @@ class InvoiceController extends Controller
             $total += $cart->quantity * $cart->price;
 
         }
-        // Set Total to 1
-        $invoice->total = $total;
-        $invoice->save();
+
+        $invoicePram = [
+            'invoice_no' => $this->createInvoiceNo(),
+            'user_id' => $userId,
+            'name' => $name,
+            'ShippingAddress' => $ShippingAddress,
+            'ShippingPhone' => $ShippingPhone,
+            'total' => $total,
+        ];
+
+        $invoice = Invoice::create($invoicePram);
 
         //Thêm chi tiết đơn hàng
         $cartItems = Cart::where('user_id', $userId)->get();
@@ -88,6 +95,7 @@ class InvoiceController extends Controller
             ]);
             $item->delete();
         }
+        Mail::to($user->email)->send(new SendMailCart($user, $invoice));
 
         return redirect()->route('index')->with('success', 'Bạn đã đặt hàng thành công.');
     }
@@ -122,5 +130,11 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         //
+    }
+
+    public function createInvoiceNo()
+    {
+        $value = (microtime(true) * 10000) + random_int(0, 999);
+        return strval($value);
     }
 }
