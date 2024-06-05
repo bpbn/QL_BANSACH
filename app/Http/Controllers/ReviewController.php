@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
-use App\Http\Requests\StoreReviewRequest;
-use App\Http\Requests\UpdateReviewRequest;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -14,7 +12,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        // Your code for listing reviews
     }
 
     /**
@@ -22,11 +20,9 @@ class ReviewController extends Controller
      */
     public function create($prod)
     {
-        //
         $comment = request()->all('Comment');
-        $comment['book_id']=$prod;
-        $comment['user_id']= auth()->id();
-
+        $comment['book_id'] = $prod;
+        $comment['user_id'] = auth()->id();
 
         if (Review::create($comment)) {
             return redirect()->back();
@@ -37,17 +33,13 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReviewRequest $request)
-    {
-        //
-    }
-
+ 
     /**
      * Display the specified resource.
      */
     public function show(Review $review)
     {
-        //
+        // Your code for displaying a specific review
     }
 
     /**
@@ -55,7 +47,7 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        //
+        // Your code for editing a review
     }
 
     /**
@@ -63,22 +55,15 @@ class ReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $request->validate([
             'Comment' => 'required|string',
         ]);
 
-        // Lấy dữ liệu mới từ request
         $newContent = $request->input('Comment');
-
-        // Tìm comment cần sửa
         $comment = Review::findOrFail($id);
-
-        // Cập nhật nội dung của comment
         $comment->Comment = $newContent;
         $comment->save();
 
-        // Phản hồi thành công hoặc chuyển hướng đến trang khác
         return redirect()->back()->with('success', 'Sửa comment thành công');
     }
 
@@ -87,14 +72,13 @@ class ReviewController extends Controller
      */
     public function destroy($id)
     {
-        //
-        // Tìm comment cần xóa
         $comment = Review::findOrFail($id);
-
-        // Xóa comment
         $comment->delete();
 
-        // Phản hồi thành công hoặc chuyển hướng đến trang khác
         return redirect()->back()->with('success', 'Xóa comment thành công');
     }
+
+    /**
+     * Display an invoice with QR code.
+     */
 }

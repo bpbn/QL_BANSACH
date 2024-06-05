@@ -7,6 +7,7 @@ use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use Illuminate\Http\Request;
 use PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class InvoiceadminController extends Controller
 {
@@ -96,8 +97,20 @@ class InvoiceadminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoice $invoice)
+    public function showInvoice($id)
     {
-        //
+        $invoice = Invoice::with('invoiceDetails', 'user')->findOrFail($id);
+        $item = $invoice->invoiceDetails->first();
+
+        $data = [
+            'quantity' => $item->quantity,
+            'invoice_id' => $invoice->id,
+            'book_id' => $item->book_id,
+        ];
+
+        $qrCode = QrCode::size(200)->generate(json_encode($data));
+        return view('invoice.show', compact('invoice', 'qrCode'));
     }
 }
+
+
