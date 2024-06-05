@@ -12,6 +12,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PromotionalController;
+use App\Http\Controllers\QRcodeGenerateController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -81,8 +82,9 @@ Route::post('register', [LoginController::class, 'postregister'])->name('registe
 Route::resource('/', BookController::class);
 Route::resource('/promotional', PromotionalController::class);
 Route::get('/products', [HomeController::class, 'show'])->name('list-products');
-
-
+//QR
+Route::get('/qrcode', [QRcodeGenerateController::class, 'qrcode'])->name('qrcode');
+//
 Route::fallback(function () {
     return view('pages.404');
 });

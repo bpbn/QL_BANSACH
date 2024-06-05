@@ -184,17 +184,17 @@ use Illuminate\Support\Facades\Auth;
                 debitRadio.addEventListener('change', () => {
                     if (debitRadio.checked) {
                         qrImage.src = '/asset/img/qrcore.jpg';
-                        qrImage.style.display = 'block'; 
+                        qrImage.style.display = 'block';
                     } else {
-                        qrImage.style.display = 'none'; 
+                        qrImage.style.display = 'none';
                     }
                 });
 
                 const creditRadio = document.getElementById('credit');
                 creditRadio.addEventListener('change', () => {
                     if (creditRadio.checked) {
-                
-                        qrImage.style.display = 'none'; 
+
+                        qrImage.style.display = 'none';
                     }
                 });
 
